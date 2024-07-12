@@ -1,4 +1,4 @@
-# Diagnostic Log and Trace
+# 诊断日志和跟踪
 
 
 [![Build Status](https://github.com/COVESA/dlt-daemon/actions/workflows/cmake-ctest.yml/badge.svg)]( https://github.com/COVESA/dlt-daemon/actions/workflows/cmake-ctest.yml)
@@ -7,9 +7,9 @@
 
 **Code coverage reports online** 📄 [LCOV - code coverage report](https://COVESA.github.io/dlt-daemon/dlt_lcov_report/index.html)
 
-# Diagnostic Log and Trace
+# 诊断日志和跟踪
 
-Welcome to COVESA Diagnostic Log and Trace (DLT). If you are familiar with DLT
+欢迎来到 COVESA 诊断日志和跟踪 (DLT). If you are familiar with DLT
 and want to know what's new, check the [Release Notes](ReleaseNotes.md).
 
 **New to DLT? Great! Welcome aboard.** We prepared a brief [overview](#overview)
