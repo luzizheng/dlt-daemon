@@ -112,15 +112,15 @@ dpkg-buildpackage -us -uc
 ### Advanced Topics
 COVESA DLT 实现的功能远不止 "发送 "日志信息。本节将为您介绍高级功能。请点击链接了解相关概念的更多信息。
 
-| Document | Description |
+| 文档 | 描述 |
 |----|----|
-| [Build Options](./doc/dlt_build_options.md) | The CMake build system provides a large amount of build options. They let you turn on or off certain features and provide alternative implementation details. |
-| [LogStorage](doc/dlt_offline_logstorage.md) | The DLT Daemon as well as the DLT libary provide buffers for caching log data during absence of a consumer. However, some use cases require to write large amounts of log message e.g. to mass storages for long term storage or because no other means of exfiltrating the log data is available. |
-| [MultiNode](doc/dlt_multinode.md) | A DLT Daemon can run as a gateway to connect multiple passive nodes. Each passive node has its owns DLT Applications and runs its own daemon. The gateway node connects to all of them, collects the logs and routes them to the DLT Client. |
-| [Extended Network Trace](doc/dlt_extended_network_trace.md) | Normal DLT messages are limited in size. To overcome this limitation the feature network trace message allows the user to send or truncate messages which would not fit into a normal DLT message. |
-| [DLT Filetransfer](doc/dlt_filetransfer.md) | Although not originally designed for this, files can be transmitted over DLT. A corresponding DLT Client (e.g. DLT Viewer) can receive and decode them accordingly. |
-| [DLT KPI](doc/dlt_kpi.md) | Valueable status information about the monitored system can be read via DLT as well. The information under `/proc` of the target system is at your hands easily. |
-| [DLT Core Dump Handler](/doc/dlt_cdh.md) | This tool collects and extracts debug information then utilize [DLT Filetransfer](doc/dlt_filetransfer.md) to transfer the information to client. |
+| [Build Options](./doc/dlt_build_options.md) | CMake 编译系统提供了大量的编译选项。通过这些选项，你可以打开或关闭某些功能，并提供其他实现细节. |
+| [LogStorage](doc/dlt_offline_logstorage.md) | DLT 守护进程和 DLT 库提供缓冲区，用于在用户不在时缓存日志数据. 但是，某些使用情况下需要写入大量日志信息，例如写入大容量存储器进行长期存储，或者因为没有其他方法可以外泄日志数据. |
+| [MultiNode](doc/dlt_multinode.md) | DLT 守护进程可以作为网关运行，连接多个无源节点。每个无源节点都有自己的 DLT 应用程序，并运行自己的守护进程。网关节点连接所有这些节点，收集日志并将其路由到 DLT 客户端. |
+| [Extended Network Trace](doc/dlt_extended_network_trace.md) | 普通 DLT 信息的大小有限。为了克服这一限制，网络跟踪信息功能允许用户发送或截断无法放入正常 DLT 信息的信息. |
+| [DLT Filetransfer](doc/dlt_filetransfer.md) | 虽然文件最初不是为此设计的，但可以通过 DLT 传输。相应的 DLT 客户端（如 DLT 浏览器）可以接收并解码这些文件. |
+| [DLT KPI](doc/dlt_kpi.md) | 还可通过 DLT 读取受监控系统的重要状态信息。目标系统"/proc "下的信息唾手可得. |
+| [DLT Core Dump Handler](/doc/dlt_cdh.md) | 该工具收集并提取调试信息，然后利用 [DLT Filetransfer]（doc/dlt_filetransfer.md）将信息传输到客户端. |
 
 ### Configure, Control and Interface
 
@@ -137,7 +137,7 @@ cmake -DWITH_MAN=ON ..
 make generate_man
 ```
 
-| Document | Description |
+| 文档 | 描述 |
 |----|----|
 | *配置* ||
 |[dlt-daemon(1)](doc/dlt-daemon.1.md) | 如何启动 DLT-Daemon |
