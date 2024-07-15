@@ -365,7 +365,7 @@ DLT_STATIC DltReturnValue dlt_daemon_logstorage_update_passive_node_context(
  * @param context           DltDaemonContext structure
  * @param ecuid             ECU id
  * @param loglevel          log level to be set to context
- * @param verbose           If set to true verbose information is printed out
+ * @param verbose           如果设置为 true，将打印出详细的信息
  * @return                  0 on success, -1 on error
  */
 DLT_STATIC DltReturnValue dlt_daemon_logstorage_send_log_level(DltDaemon *daemon,
@@ -427,7 +427,7 @@ DLT_STATIC DltReturnValue dlt_daemon_logstorage_send_log_level(DltDaemon *daemon
  * @param context           DltDaemonContext structure
  * @param ecuid             ECU ID
  * @param loglevel          log level to be set to context
- * @param verbose           If set to true verbose information is printed out
+ * @param verbose           如果设置为 true，将打印出详细的信息
  * @return                  0 on success, -1 on error
  */
 DLT_STATIC DltReturnValue dlt_daemon_logstorage_reset_log_level(DltDaemon *daemon,
@@ -479,7 +479,7 @@ DLT_STATIC DltReturnValue dlt_daemon_logstorage_reset_log_level(DltDaemon *daemo
  * @param ctid              Context ID
  * @param ecuid             ECU ID
  * @param loglevel          log level to be set to context
- * @param verbose           If set to true verbose information is printed out
+ * @param verbose           如果设置为 true，将打印出详细的信息
  * @return                  0 on success, -1 on error
  */
 DLT_STATIC DltReturnValue dlt_daemon_logstorage_force_reset_level(DltDaemon *daemon,
@@ -541,7 +541,7 @@ DLT_STATIC DltReturnValue dlt_daemon_logstorage_force_reset_level(DltDaemon *dae
  * @param curr_log_level    log level to be set to context
  * @param cmp_flag          compare flag
  * @param ecuid             ecu id where application runs
- * @param verbose           If set to true verbose information is printed out
+ * @param verbose           如果设置为 true，将打印出详细的信息
  * @return                  0 on success, -1 on error
  */
 DltReturnValue dlt_logstorage_update_all_contexts(DltDaemon *daemon,
@@ -612,7 +612,7 @@ DltReturnValue dlt_logstorage_update_all_contexts(DltDaemon *daemon,
  * @param ctid              context id
  * @param ecuid             ecu id
  * @param curr_log_level    log level to be set to context
- * @param verbose           If set to true verbose information is printed out
+ * @param verbose           如果设置为 true，将打印出详细的信息
  * @return                  0 on success, -1 on error
  */
 DltReturnValue dlt_logstorage_update_context(DltDaemon *daemon,
@@ -685,7 +685,7 @@ DltReturnValue dlt_logstorage_update_context(DltDaemon *daemon,
  * @param daemon_local      Pointer to DLT Daemon Local structure
  * @param key               Filter key stored in Hash Map
  * @param curr_log_level    log level to be set to context
- * @param verbose           If set to true verbose information is printed out
+ * @param verbose           如果设置为 true，将打印出详细的信息
  * @return                  0 on success, -1 on error
  */
 DltReturnValue dlt_logstorage_update_context_loglevel(DltDaemon *daemon,
@@ -781,7 +781,7 @@ DltReturnValue dlt_logstorage_update_context_loglevel(DltDaemon *daemon,
  * @param daemon_local  Pointer to DLT Daemon local structure
  * @param dev_num       Number of attached DLT Logstorage device
  * @param max_device    Maximum storage devices setup by the daemon
- * @param verbose       If set to true verbose information is printed out
+ * @param verbose       如果设置为 true，将打印出详细的信息
  */
 void dlt_daemon_logstorage_reset_application_loglevel(DltDaemon *daemon,
                                                       DltDaemonLocal *daemon_local,
@@ -868,7 +868,7 @@ void dlt_daemon_logstorage_reset_application_loglevel(DltDaemon *daemon,
  * @param daemon        Pointer to DLT Daemon structure
  * @param daemon_local  Pointer to DLT Daemon local structure
  * @param dev_num       Number of attached DLT Logstorage device
- * @param verbose       If set to true verbose information is printed out
+ * @param verbose       如果设置为 true，将打印出详细的信息
  */
 void dlt_daemon_logstorage_update_application_loglevel(DltDaemon *daemon,
                                                        DltDaemonLocal *daemon_local,
@@ -1087,7 +1087,7 @@ int dlt_daemon_logstorage_write(DltDaemon *daemon,
  * @param daemon        Pointer to Dlt Daemon structure
  * @param daemon_local  Pointer to Dlt Daemon local structure
  * @param path          User configured internal storage path
- * @param verbose       If set to true verbose information is printed out
+ * @param verbose       如果设置为 true，将打印出详细的信息
  * @return 0 on sucess, -1 otherwise
  */
 int dlt_daemon_logstorage_setup_internal_storage(DltDaemon *daemon,

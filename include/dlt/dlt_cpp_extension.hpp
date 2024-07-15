@@ -1,27 +1,3 @@
-/*
- * SPDX license identifier: MPL-2.0
- *
- * Copyright (C) 2015  Intel Corporation
- *
- * This file is part of COVESA Project DLT - Diagnostic Log and Trace.
- *
- * This Source Code Form is subject to the terms of the
- * Mozilla Public License (MPL), v. 2.0.
- * If a copy of the MPL was not distributed with this file,
- * You can obtain one at http://mozilla.org/MPL/2.0/.
- *
- * For further information see http://www.covesa.org/.
- */
-
-/*!
- * \author Stefan Vacek <stefan.vacek@intel.com> Intel Corporation
- *
- * \copyright Copyright © 2015 Intel Corporation. \n
- * License MPL-2.0: Mozilla Public License version 2.0 http://mozilla.org/MPL/2.0/.
- *
- * \file dlt_cpp_extension.hpp
-*/
-
 #ifndef DLT_CPP_EXTENSION_HPP
 #define DLT_CPP_EXTENSION_HPP
 

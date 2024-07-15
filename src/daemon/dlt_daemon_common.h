@@ -221,7 +221,7 @@ typedef struct
  * @param InitialContextLogLevel loglevel to be sent to context when those register with loglevel default, read from dlt.conf
  * @param InitialContextTraceStatus tracestatus to be sent to context when those register with tracestatus default, read from dlt.conf
  * @param ForceLLTS force default log-level
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 int dlt_daemon_init(DltDaemon *daemon,
@@ -236,7 +236,7 @@ int dlt_daemon_init(DltDaemon *daemon,
 /**
  * De-Initialise the dlt daemon structure
  * @param daemon pointer to dlt daemon structure
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 int dlt_daemon_free(DltDaemon *daemon, int verbose);
@@ -246,7 +246,7 @@ int dlt_daemon_free(DltDaemon *daemon, int verbose);
  * @param daemon pointer to dlt daemon structure
  * @param gateway pointer to dlt gateway structure
  * @param gateway_mode mode of dlt daemon, specified in dlt.conf
- * @param verbose if set to true verbose information is printed out
+ * @param verbose 如果设置为 true，将打印出详细的信息
  * @return DLT_RETURN_OK on success, DLT_RETURN_ERROR otherwise
  */
 int dlt_daemon_init_user_information(DltDaemon *daemon,
@@ -257,7 +257,7 @@ int dlt_daemon_init_user_information(DltDaemon *daemon,
  * Find information about application/contexts for a specific ECU
  * @param daemon pointer to dlt daemon structure
  * @param ecu pointer to node name
- * @param verbose if set to true verbose information is printed out
+ * @param verbose 如果设置为 true，将打印出详细的信息
  * @return pointer to user list, NULL otherwise
  */
 DltDaemonRegisteredUsers *dlt_daemon_find_users_list(DltDaemon *daemon,
@@ -296,7 +296,7 @@ DltDaemonContextLogSettings *dlt_daemon_find_app_log_level_config(
  * This is just for preparation of real load later.
  * @param daemon pointer to dlt daemon structure
  * @param runtime_directory directory path
- * @param verbose if set to true verbose information is printed out
+ * @param verbose 如果设置为 true，将打印出详细的信息
  * @return DLT_RETURN_OK on success, DLT_RETURN_ERROR otherwise
  */
 int dlt_daemon_init_runtime_configuration(DltDaemon *daemon,
@@ -311,7 +311,7 @@ int dlt_daemon_init_runtime_configuration(DltDaemon *daemon,
  * @param description description of application
  * @param fd file descriptor of application
  * @param ecu pointer to ecu id of node to add applications
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return Pointer to added context, null pointer on error
  */
 DltDaemonApplication *dlt_daemon_application_add(DltDaemon *daemon,
@@ -326,7 +326,7 @@ DltDaemonApplication *dlt_daemon_application_add(DltDaemon *daemon,
  * @param daemon pointer to dlt daemon structure
  * @param application pointer to application to be deleted
  * @param ecu pointer to ecu id of node to delete applications
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 int dlt_daemon_application_del(DltDaemon *daemon,
@@ -338,7 +338,7 @@ int dlt_daemon_application_del(DltDaemon *daemon,
  * @param daemon pointer to dlt daemon structure
  * @param apid pointer to application id
  * @param ecu pointer to ecu id of node to clear applications
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return Pointer to application, null pointer on error or not found
  */
 DltDaemonApplication *dlt_daemon_application_find(DltDaemon *daemon,
@@ -349,7 +349,7 @@ DltDaemonApplication *dlt_daemon_application_find(DltDaemon *daemon,
  * Load applications from file to internal context management
  * @param daemon pointer to dlt daemon structure
  * @param filename name of file to be used for loading
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 int dlt_daemon_applications_load(DltDaemon *daemon, const char *filename, int verbose);
@@ -357,7 +357,7 @@ int dlt_daemon_applications_load(DltDaemon *daemon, const char *filename, int ve
  * Save applications from internal context management to file
  * @param daemon pointer to dlt daemon structure
  * @param filename name of file to be used for saving
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 int dlt_daemon_applications_save(DltDaemon *daemon, const char *filename, int verbose);
@@ -366,7 +366,7 @@ int dlt_daemon_applications_save(DltDaemon *daemon, const char *filename, int ve
  * @param daemon pointer to dlt daemon structure
  * @param ecu node these applications running on.
  * @param fd file descriptor
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 int dlt_daemon_applications_invalidate_fd(DltDaemon *daemon,
@@ -377,7 +377,7 @@ int dlt_daemon_applications_invalidate_fd(DltDaemon *daemon,
  * Clear all applications in internal application management of specific ecu
  * @param daemon pointer to dlt daemon structure
  * @param ecu pointer to ecu id of node to clear applications
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 int dlt_daemon_applications_clear(DltDaemon *daemon, char *ecu, int verbose);
@@ -393,7 +393,7 @@ int dlt_daemon_applications_clear(DltDaemon *daemon, char *ecu, int verbose);
  * @param user_handle connection handle for connection to user application
  * @param description description of context
  * @param ecu pointer to ecu id of node to add application
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return Pointer to added context, null pointer on error
  */
 DltDaemonContext *dlt_daemon_context_add(DltDaemon *daemon,
@@ -411,7 +411,7 @@ DltDaemonContext *dlt_daemon_context_add(DltDaemon *daemon,
  * @param daemon pointer to dlt daemon structure
  * @param context pointer to context to be deleted
  * @param ecu pointer to ecu id of node to delete application
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 int dlt_daemon_context_del(DltDaemon *daemon,
@@ -424,7 +424,7 @@ int dlt_daemon_context_del(DltDaemon *daemon,
  * @param apid pointer to application id
  * @param ctid pointer to context id
  * @param ecu pointer to ecu id of node to clear applications
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return Pointer to context, null pointer on error or not found
  */
 DltDaemonContext *dlt_daemon_context_find(DltDaemon *daemon,
@@ -437,7 +437,7 @@ DltDaemonContext *dlt_daemon_context_find(DltDaemon *daemon,
  * @param daemon pointer to dlt daemon structure
  * @param ecu node these contexts running on.
  * @param fd file descriptor
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 int dlt_daemon_contexts_invalidate_fd(DltDaemon *daemon,
@@ -448,7 +448,7 @@ int dlt_daemon_contexts_invalidate_fd(DltDaemon *daemon,
  * Clear all contexts in internal context management of specific ecu
  * @param daemon pointer to dlt daemon structure
  * @param ecu pointer to ecu id of node to clear contexts
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 int dlt_daemon_contexts_clear(DltDaemon *daemon, char *ecu, int verbose);
@@ -456,7 +456,7 @@ int dlt_daemon_contexts_clear(DltDaemon *daemon, char *ecu, int verbose);
  * Load contexts from file to internal context management
  * @param daemon pointer to dlt daemon structure
  * @param filename name of file to be used for loading
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 int dlt_daemon_contexts_load(DltDaemon *daemon, const char *filename, int verbose);
@@ -464,7 +464,7 @@ int dlt_daemon_contexts_load(DltDaemon *daemon, const char *filename, int verbos
  * Save contexts from internal context management to file
  * @param daemon pointer to dlt daemon structure
  * @param filename name of file to be used for saving
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 int dlt_daemon_contexts_save(DltDaemon *daemon, const char *filename, int verbose);
@@ -472,7 +472,7 @@ int dlt_daemon_contexts_save(DltDaemon *daemon, const char *filename, int verbos
  * Load persistant configuration
  * @param daemon pointer to dlt daemon structure
  * @param filename name of file to be used for loading
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 int dlt_daemon_configuration_load(DltDaemon *daemon, const char *filename, int verbose);
@@ -480,7 +480,7 @@ int dlt_daemon_configuration_load(DltDaemon *daemon, const char *filename, int v
  * Save configuration persistantly
  * @param daemon pointer to dlt daemon structure
  * @param filename name of file to be used for saving
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 int dlt_daemon_configuration_save(DltDaemon *daemon, const char *filename, int verbose);
@@ -490,7 +490,7 @@ int dlt_daemon_configuration_save(DltDaemon *daemon, const char *filename, int v
  * Send user message DLT_USER_MESSAGE_LOG_LEVEL to user application
  * @param daemon pointer to dlt daemon structure
  * @param context pointer to context for response
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 int dlt_daemon_user_send_log_level(DltDaemon *daemon, DltDaemonContext *context, int verbose);
@@ -499,7 +499,7 @@ int dlt_daemon_user_send_log_level(DltDaemon *daemon, DltDaemonContext *context,
  * Send user message DLT_USER_MESSAGE_LOG_STATE to user application
  * @param daemon pointer to dlt daemon structure
  * @param app pointer to application for response
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 int dlt_daemon_user_send_log_state(DltDaemon *daemon, DltDaemonApplication *app, int verbose);
@@ -508,7 +508,7 @@ int dlt_daemon_user_send_log_state(DltDaemon *daemon, DltDaemonApplication *app,
  * Send user messages to all user applications using default context, or trace status
  * to update those values
  * @param daemon pointer to dlt daemon structure
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_user_send_default_update(DltDaemon *daemon, int verbose);
 
@@ -518,7 +518,7 @@ void dlt_daemon_user_send_default_update(DltDaemon *daemon, int verbose);
  * @param enforce_context_ll_and_ts defines if enforcement of log levels is on
  * @param context_log_level the log level of the context
  * @param log_level new log level to be set
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_user_send_all_log_level_update(DltDaemon *daemon,
                                                int enforce_context_ll_and_ts,
@@ -530,7 +530,7 @@ void dlt_daemon_user_send_all_log_level_update(DltDaemon *daemon,
  * Send user messages to all user applications context to update with the new trace status
  * @param daemon pointer to dlt daemon structure
  * @param trace_status new trace status to be set
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_user_send_all_trace_status_update(DltDaemon *daemon, int8_t trace_status, int verbose);
 
@@ -538,7 +538,7 @@ void dlt_daemon_user_send_all_trace_status_update(DltDaemon *daemon, int8_t trac
  * Send user messages to all user applications the log status
  * everytime the client is connected or disconnected.
  * @param daemon pointer to dlt daemon structure
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_user_send_all_log_state(DltDaemon *daemon, int verbose);
 
@@ -550,7 +550,7 @@ void dlt_daemon_user_send_all_log_state(DltDaemon *daemon, int verbose);
  * @param InitialContextLogLevel loglevel to be sent to context when those register with loglevel default, read from dlt.conf
  * @param InitialContextTraceStatus tracestatus to be sent to context when those register with tracestatus default, read from dlt.conf
  * @param InitialEnforceLlTsStatus force default log-level
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_control_reset_to_factory_default(DltDaemon *daemon,
                                                  const char *filename,

@@ -75,7 +75,7 @@
  * @param size1 size of data
  * @param data2 pointer to data
  * @param size2 size of data
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return unequal 0 if there is an error or buffer is full
  */
 int dlt_daemon_client_send(int sock,
@@ -92,7 +92,7 @@ int dlt_daemon_client_send(int sock,
  * Send out message to all client or store message in offline trace.
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 0 if success, less than 0 if there is an error or buffer is full
  */
 int dlt_daemon_client_send_message_to_all_client(DltDaemon *daemon,
@@ -106,7 +106,7 @@ int dlt_daemon_client_send_message_to_all_client(DltDaemon *daemon,
  * @param msg pointer to response message
  * @param apid pointer to application id to be used in response message
  * @param ctid pointer to context id to be used in response message
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return -1 if there is an error or buffer is full
  */
 int dlt_daemon_client_send_control_message(int sock,
@@ -122,7 +122,7 @@ int dlt_daemon_client_send_control_message(int sock,
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
  * @param msg pointer to received control message
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_control_get_log_info(int sock,
                                      DltDaemon *daemon,
@@ -134,7 +134,7 @@ void dlt_daemon_control_get_log_info(int sock,
  * @param sock connection handle used for sending response
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_control_get_software_version(int sock, DltDaemon *daemon, DltDaemonLocal *daemon_local, int verbose);
 /**
@@ -142,7 +142,7 @@ void dlt_daemon_control_get_software_version(int sock, DltDaemon *daemon, DltDae
  * @param sock connection handle used for sending response
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_control_get_default_log_level(int sock, DltDaemon *daemon, DltDaemonLocal *daemon_local, int verbose);
 /**
@@ -152,7 +152,7 @@ void dlt_daemon_control_get_default_log_level(int sock, DltDaemon *daemon, DltDa
  * @param daemon_local pointer to dlt daemon local structure
  * @param overflow_counter Overflow counter
  * @param apid Application ID
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return -1 if there is an error or buffer overflow, else 0
  */
 int dlt_daemon_control_message_buffer_overflow(int sock,
@@ -168,7 +168,7 @@ int dlt_daemon_control_message_buffer_overflow(int sock,
  * @param daemon_local pointer to dlt daemon local structure
  * @param service_id service id of control message
  * @param status status of response (e.g. ok, not supported, error)
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_control_service_response(int sock,
                                          DltDaemon *daemon,
@@ -184,7 +184,7 @@ void dlt_daemon_control_service_response(int sock,
  * @param apid application id to be unregisteres
  * @param ctid context id to be unregistered
  * @param comid Communication id where apid is unregistered
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 int dlt_daemon_control_message_unregister_context(int sock,
                                                   DltDaemon *daemon,
@@ -200,7 +200,7 @@ int dlt_daemon_control_message_unregister_context(int sock,
  * @param daemon_local pointer to dlt daemon local structure
  * @param state state of connection
  * @param comid Communication id where connection state changed
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 int dlt_daemon_control_message_connection_info(int sock,
                                                DltDaemon *daemon,
@@ -213,7 +213,7 @@ int dlt_daemon_control_message_connection_info(int sock,
  * @param sock connection handle used for sending response
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 int dlt_daemon_control_message_timezone(int sock, DltDaemon *daemon, DltDaemonLocal *daemon_local, int verbose);
 /**
@@ -221,7 +221,7 @@ int dlt_daemon_control_message_timezone(int sock, DltDaemon *daemon, DltDaemonLo
  * @param sock connection handle used for sending response
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 int dlt_daemon_control_message_marker(int sock, DltDaemon *daemon, DltDaemonLocal *daemon_local, int verbose);
 /**
@@ -230,7 +230,7 @@ int dlt_daemon_control_message_marker(int sock, DltDaemon *daemon, DltDaemonLoca
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
  * @param msg pointer to received control message
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 int dlt_daemon_client_process_control(int sock,
                                       DltDaemon *daemon,
@@ -243,7 +243,7 @@ int dlt_daemon_client_process_control(int sock,
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
  * @param msg pointer to received sw injection control message
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_control_callsw_cinjection(int sock,
                                           DltDaemon *daemon,
@@ -256,7 +256,7 @@ void dlt_daemon_control_callsw_cinjection(int sock,
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
  * @param msg pointer to received control message
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_control_set_log_level(int sock,
                                       DltDaemon *daemon,
@@ -269,7 +269,7 @@ void dlt_daemon_control_set_log_level(int sock,
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
  * @param msg pointer to received control message
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_control_set_trace_status(int sock,
                                          DltDaemon *daemon,
@@ -282,7 +282,7 @@ void dlt_daemon_control_set_trace_status(int sock,
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
  * @param msg pointer to received control message
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_control_set_default_log_level(int sock,
                                               DltDaemon *daemon,
@@ -295,7 +295,7 @@ void dlt_daemon_control_set_default_log_level(int sock,
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
  * @param msg pointer to received control message
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_control_set_all_log_level(int sock,
                                           DltDaemon *daemon,
@@ -309,7 +309,7 @@ void dlt_daemon_control_set_all_log_level(int sock,
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
  * @param msg pointer to received control message
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_control_set_default_trace_status(int sock,
                                                  DltDaemon *daemon,
@@ -322,7 +322,7 @@ void dlt_daemon_control_set_default_trace_status(int sock,
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
  * @param msg pointer to received control message
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_control_set_all_trace_status(int sock,
                                              DltDaemon *daemon,
@@ -335,7 +335,7 @@ void dlt_daemon_control_set_all_trace_status(int sock,
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
  * @param msg pointer to received control message
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_control_set_timing_packets(int sock,
                                            DltDaemon *daemon,
@@ -347,7 +347,7 @@ void dlt_daemon_control_set_timing_packets(int sock,
  * @param sock connection handle used for sending response
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_control_message_time(int sock, DltDaemon *daemon, DltDaemonLocal *daemon_local, int verbose);
 /**
@@ -356,7 +356,7 @@ void dlt_daemon_control_message_time(int sock, DltDaemon *daemon, DltDaemonLocal
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
  * @param msg pointer to received control message
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_control_service_logstorage(int sock,
                                            DltDaemon *daemon,
@@ -371,7 +371,7 @@ void dlt_daemon_control_service_logstorage(int sock,
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
  * @param msg pointer to received control message
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_control_passive_node_connect(int sock,
                                              DltDaemon *daemon,
@@ -384,7 +384,7 @@ void dlt_daemon_control_passive_node_connect(int sock,
  * @param sock connection handle used for sending response
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  */
 void dlt_daemon_control_passive_node_connect_status(int sock,
                                                     DltDaemon *daemon,

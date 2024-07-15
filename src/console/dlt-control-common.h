@@ -98,17 +98,17 @@ int dlt_control_deinit(void);
 #ifdef EXTENDED_FILTERING
 /**
  * Load json filter from file.
- * @param filter pointer to structure of organising DLT filter
+ * @param filter 指向组织 DLT 过滤器结构的指针
  * @param filename filename to load filters from
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_json_filter_load(DltFilter *filter, const char *filename, int verbose);
 /**
  * Save filter in json format to file.
- * @param filter pointer to structure of organising DLT filter
+ * @param filter 指向组织 DLT 过滤器结构的指针
  * @param filename filename to safe filters into
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_json_filter_save(DltFilter *filter, const char *filename, int verbose);

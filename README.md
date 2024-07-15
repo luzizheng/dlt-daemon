@@ -12,76 +12,54 @@
 欢迎来到 COVESA 诊断日志和跟踪 (DLT). If you are familiar with DLT
 and want to know what's new, check the [Release Notes](ReleaseNotes.md).
 
-**New to DLT? Great! Welcome aboard.** We prepared a brief [overview](#overview)
-for you as well as some information on how to [get started](#get-started)
-immediately. After you made yourself familiar with the basic mechanics of DLT,
-you can [learn more](#learn-more) about advanced concepts and features.
+**DLT 新手？太好了！欢迎加入。** 我们为您准备了一份简短的[概述](#overview)
+以及如何立即[开始](#get-started)的一些信息。在熟悉了 DLT 的基本机制后，您可以 [了解更多](#learn-more) 高级概念和功能。
 
 ## Overview
 
-COVESA DLT provides a log and trace interface, based on the standardised
-protocol specified in the
-[AUTOSAR Classic Platform R19-11 DLT](https://www.autosar.org/fileadmin/standards/R19-11/CP/AUTOSAR_SWS_DiagnosticLogAndTrace.pdf).
-It is used by other COVESA components but can serve as logging framework for
-other applications without relation to COVESA.
-
-The most important terms and parts are depicted in the following figure. Please
-refer to [Glossary](doc/dlt_glossary.md) for a full overview over DLT-specific
-terms.
+COVESA DLT 基于[AUTOSAR 经典平台 R19-11 DLT]()中指定的标准化协议，提供日志和跟踪接口。
+[AUTOSAR Classic Platform R19-11 DLT](https://www.autosar.org/fileadmin/standards/R19-11/CP/AUTOSAR_SWS_DiagnosticLogAndTrace.pdf)中指定的标准化协议为基础，提供了日志和跟踪接口。
+它被其他 COVESA 组件使用，但也可用作与 COVESA 无关的其他应用程序的日志框架。
+最重要的术语和部分如下图所示。请参阅[术语表](doc/dlt_glossary.md)，全面了解 DLT 专用术语。
 
 ![alt text](doc/images/dlt_overview.png "DLT Overview")
 
-- A **DLT User** essentially is an application that serves its respective (not
-DLT-related) purpose and produces DLT log messages. It utilizes the DLT library
-to craft and transmit these messages.
-- The **DLT Library** provides a convenient API to DLT Users (i.e. applications)
-to create DLT log messages and hand them over to the DLT Daemon. If the latter
-is not avilable, the library will cache the messages in a ring buffer so they
-don't get lost immediately.
-- The **DLT Daemon** is the DLT communication interface of an ECU. It collects
-and buffers log messages from one or more DLT users running on the ECU and
-provides them to DLT clients upon their request. The daemon also accepts control
-messages from the clients to adjust the daemon's or the aplications' behaviour.
-- A **DLT Client** receives and consumes the log messages from DLT Users by
-fetching them from DLT Daemons. It may also issue control messages to control
-the behaviour of a DLT Daemon or its connected DLT Users. A DLT client can even
-transmit user-defined data to a DLT User through so-calles injection messages.
+- 从本质上讲，**DLT 用户**是一个应用程序，它服务于各自的（与 DLT 无关的）目的，并生成 DLT 日志信息。它利用 DLT 库来制作和传输这些信息。
+- DLT 库**为 DLT 用户（即应用程序）创建 DLT 日志信息并将其发送给 DLT 守护进程提供了便捷的应用程序接口。如果后者不可用，该库会将信息缓存在一个环形缓冲区中，这样它们就不会立即丢失。
+- DLT 守护进程是 ECU 的 DLT 通信接口。它收集和缓冲来自 ECU 上运行的一个或多个 DLT 用户的日志信息，并应 DLT 客户的要求提供给他们。守护进程还接受来自客户端的控制信息，以调整守护进程或应用程序的行为。
+- **DLT 客户端**通过从 DLT 守护进程中获取 DLT 用户的日志信息来接收和使用这些信息。它还可以发出控制信息，以控制 DLT 守护进程或其连接的 DLT 用户的行为。DLT 客户端甚至可以通过注入信息向 DLT 用户传输用户定义的数据。
 
-This is only the simplest of all use cases that you will further pursue in the
-[Get Started](#get-started) section. Once you want to [learn more](#learn-more),
-you will find that the repository contains advanced features utilizing several
-adaptors and console utilities as well as test applications.
+这只是所有用例中最简单的一种，您将在[开始](#get-start)部分进一步了解这些用例。
+[开始](#get-started) 部分进一步探讨。一旦你想[了解更多](#learn-more)、
+你就会发现，软件源包含了利用多个
+适配器和控制台实用程序以及测试应用程序。
 
 ## Get Started
-In this section, you can learn how to [build and install](#build-and-install)
-DLT. Then you can choose to [run a DLT demo](#run-a-dlt-demo) setup or to start
-by [developing your own DLT-featured application](#develop-your-own-dlt-featured-application).
+在本节中，你可以学习如何[构建和安装](#build-and-install) DLT。然后，你可以选择[运行 DLT 演示](#run-a-dlt-demo) 设置，或者从[开发自己的 DLT 功能应用程序](#develop-your-own-dlt-featured-application) 开始。
 
 ### Build and install
 
-The following packages need to be installed in order to be able to build and
-install DLT daemon:
+需要安装以下软件包，才能构建和安装 DLT 守护进程：
 
 - cmake
 - zlib
 - dbus
-- json-c (only required for dlt-receives extended filtering)
+- json-c (仅 dlt-receives 扩展过滤需要)
 
-On Ubuntu those dependencies can be installed with the following command:
+在 Ubuntu 上，可以使用以下命令安装这些依赖项:
 
 ```bash
 sudo apt-get install cmake zlib1g-dev libdbus-glib-1-dev build-essential
-optional: sudo apt-get install libjson-c-dev # in case you want to use dlt-receives extended filtering
+optional: sudo apt-get install libjson-c-dev # 如果您想使用 dlt-receives 扩展过滤功能
 ```
 
-Then proceed to download DLT if you haven't already. We recommend cloning the
-repository, but downloading and extracting a zip-archive is fine as well.
+然后继续下载 DLT（如果尚未下载）。我们建议克隆版本库，但下载并解压压缩包也可以。
 ```bash
 cd /path/to/workspace
 git clone https://github.com/COVESA/dlt-daemon.git
 ```
 
-To build and install the DLT daemon, follow these steps:
+按照以下步骤构建和安装 DLT 守护进程:
 
 ```bash
 cd /path/to/workspace/dlt-daemon
@@ -90,29 +68,25 @@ cd build
 cmake ..
 make
 optional: sudo make install
-optional: sudo ldconfig # in case you executed make install
+optional: sudo ldconfig # 万一你执行了 make install
 ```
 
-For DLT on Cygwin please refer to [Build and Install DLT on Cygwin](doc/dlt_on_Cygwin.md)
+关于 Cygwin 上的 DLT，请参阅[在 Cygwin 上构建和安装 DLT](doc/dlt_on_Cygwin.md)。
 
-CMake accepts a plethora of [build options](doc/dlt_build_options.md) to
-configure the build to suit your needs.
+CMake 接受大量的[编译选项]（doc/dlt_build_options.md）来配置编译以满足您的需求。
 
 ### Run a DLT demo
-In case you haven't had a look at the brief [overview](#overview), now would be
-the perfect occasion to learn about the most important terms and to get an idea
-where data is buffered. Then go on with our guide on [how to set up a DLT demo
-setup](doc/dlt_demo_setup.md).
+如果您还没有看过[概述](#overview)，现在是了解最重要术语和了解数据缓冲位置的最佳时机。
+然后继续阅读我们的[如何设置 DLT 演示设置]指南（doc/dlt_demo_setup.md）。
 
 ### Develop your own DLT-featured application
 
-Now that you have seen DLT in action, you probably want to develop your own
-applications using DLT. You will find everything you need in our ["DLT for
-Application Developers" guide](doc/dlt_for_developers.md).
+既然您已经看到了 DLT 的实际应用，您可能想使用 DLT 开发自己的应用程序。
+您可以在我们的["应用程序开发人员的 DLT "指南（doc/dlt_for_developers.md）]中找到所需的一切。
 
-A hint: If you want to read the API documentation, you have to build it locally
-at the moment. The API documentation is generated with _doxygen_. To build it,
-run cmake with the ```-DWITH_DOC=ON``` option, e.g.:
+提示：如果您想阅读 API 文档，目前必须在本地构建。
+API 文档由 _doxygen 生成。
+要编译它，请在运行 cmake 时使用 ```-DWITH_DOC=ON``` 选项，例如：
 
 ```bash
 mkdir build
@@ -123,23 +97,20 @@ make doc
 
 ### Build DLT debian package
 
-To build the DLT debian package for your own purpose, follow these steps:
+要为自己的目的构建 DLT debian 软件包，请按照以下步骤操作:
 
 ```bash
 dpkg-buildpackage -us -uc
 ```
 
 ## Learn more
-Once you got your feet wet with developing your first application, you might
-want to learn more. Find out about DLT's [advanced topics](#advanced-topics),
-learn how to [configure, control and interface](#configure-control-and-interface)
-DLT or study its internals by checking out the [design
-specifications](./doc/dlt_design_specification.md).
+当您开发出第一个应用程序后，您可能想了解更多。
+了解 DLT 的[高级主题](#advanced-topics)，
+学习如何[配置、控制和接口](#configure-control-and-interface) DLT，
+或通过查看[设计规范（./doc/dlt_design_specification.md）]来研究其内部结构。
 
 ### Advanced Topics
-The COVESA DLT implementation is capable of by far more than to "just" send log
-message. You will get an overview of advanced features in this section. Follow
-the links to learn more about the respective concept.
+COVESA DLT 实现的功能远不止 "发送 "日志信息。本节将为您介绍高级功能。请点击链接了解相关概念的更多信息。
 
 | Document | Description |
 |----|----|
@@ -153,15 +124,12 @@ the links to learn more about the respective concept.
 
 ### Configure, Control and Interface
 
-There is still lots to discover about DLT. If you turn on the generation of
-manpages with the cmake option ```-DWITH_MAN=ON``` you can learn how to
-configure DLT to exactly suit your needs, how to control the behvaiour of
-running instances and how to interface DLT with existing system through
-provided adaptors.
+关于 DLT，我们还有很多东西需要探索。如果使用 cmake 选项 "```-DWITH_MAN=ON```"打开 manpages 的生成，
+你就能了解如何配置 DLT 以完全满足你的需求，如何控制运行实例的行为，以及如何通过提供的适配器将 DLT 与现有系统连接起来。
 
-The man pages are generated with *pandoc*, which also needs *asciidoc* as dependency.
+手册是用 *pandoc* 生成的，它还需要 *asciidoc* 作为依赖项。
 
-Build manpages (initally or because something changed) with e.g.
+用以下方法生成手册（初始或因为某些内容发生变化），例如
 ```bash
 mkdir build
 cd build
@@ -171,74 +139,66 @@ make generate_man
 
 | Document | Description |
 |----|----|
-| *Configuration* ||
-|[dlt-daemon(1)](doc/dlt-daemon.1.md) | How to start DLT-Daemon |
-|[dlt.conf(5)](doc/dlt.conf.5.md) | Configure the DLT framework to reflect your use case|
-| *Control running instances of DLT*||
-|[dlt-receive(1)](doc/dlt-receive.1.md)| Receive DLT messages from daemon and print or store the log messages. |
-|[dlt-control(1)](doc/dlt-control.1.md)| Send control messages to daemon. |
-|[dlt-logstorage-ctrl(1)](doc/dlt-logstorage-ctrl.1.md)| Send a trigger to daemon to connect/disconnect certain logstorage device, or send a demand to sync data the internal buffer into logstorage file. |
-|[dlt-passive-node-ctrl(1)](doc/dlt-passive-node-ctrl.1.md)| Send a trigger to daemon to connect/disconnect passive daemon. |
-| *Interfacing DLT* ||
-|[dlt-system(1)](doc/dlt-system.1.md) | DLT-System provides a way to directly access system logs via DLT |
-|[dlt-system.conf(5)](doc/dlt-system.conf.5.md) | Configure DLT-System |
-|[dlt-adaptor-stdin(1)](doc/dlt-adaptor-stdin.1.md)| Adaptor for forwarding input from stdin to daemon. |
-|[dlt-adaptor-udp(1)](doc/dlt-adaptor-udp.1.md)| Adaptor for forwarding received UDP messages to daemon. |
-|[dlt-convert(1)](doc/dlt-convert.1.md)| Convert DLT files into human readable format. |
-|[dlt-sortbytimestamp(1)](doc/dlt-sortbytimestamp.1.md)| Read log messages from DLT file, sort by timestamp, and store them again. |
-|[dlt-qnx-system(1)](doc/dlt-qnx-system.md) | Access system logs in QNX with DLT |
+| *配置* ||
+|[dlt-daemon(1)](doc/dlt-daemon.1.md) | 如何启动 DLT-Daemon |
+|[dlt.conf(5)](doc/dlt.conf.5.md) | 配置 DLT 框架以反映您的使用情况|
+| *控制运行中的 DLT 实例*||
+|[dlt-receive(1)](doc/dlt-receive.1.md)| 从守护进程接收 DLT 信息，并打印或存储日志信息. |
+|[dlt-control(1)](doc/dlt-control.1.md)| 向守护进程发送控制信息. |
+|[dlt-logstorage-ctrl(1)](doc/dlt-logstorage-ctrl.1.md)| 向守护进程发送连接/断开特定日志存储设备的触发器，或发送将内部缓冲区数据同步到日志存储文件的要求. |
+|[dlt-passive-node-ctrl(1)](doc/dlt-passive-node-ctrl.1.md)| 向守护进程发送触发器，以连接/断开被动守护进程. |
+| *连接 DLT* ||
+|[dlt-system(1)](doc/dlt-system.1.md) | DLT-System 提供了一种通过 DLT 直接访问系统日志的方法 |
+|[dlt-system.conf(5)](doc/dlt-system.conf.5.md) | 配置 DLT 系统 |
+|[dlt-adaptor-stdin(1)](doc/dlt-adaptor-stdin.1.md)| 从 stdin 向守护进程转发输入的适配器. |
+|[dlt-adaptor-udp(1)](doc/dlt-adaptor-udp.1.md)| 将收到的 UDP 信息转发给守护进程的适配器. |
+|[dlt-convert(1)](doc/dlt-convert.1.md)| 将 DLT 文件转换为人类可读格式. |
+|[dlt-sortbytimestamp(1)](doc/dlt-sortbytimestamp.1.md)| 从 DLT 文件中读取日志信息，按时间戳排序，然后重新存储. |
+|[dlt-qnx-system(1)](doc/dlt-qnx-system.md) | 使用 DLT 在 QNX 中访问系统日志 |
 
 ## Contribution
 
-Start working, best practice is to commit smaller, compilable pieces during the
-work that makes it easier to handle later on.
+开始工作，最好的做法是在工作期间提交较小的、可编译的片段，以便日后处理。
 
-If you want to commit your changes, create a
-[Pull Request](https://github.com/covesa/dlt-daemon/pulls) in Github. Please
-make sure to follow the
-[Rules for commit messages](https://at.projects.covesa.org/wiki/display/PROJ/Rules+for+Commit+Messages)
+如果您想提交更改，请在 Github 上创建 [Pull Request](https://github.com/covesa/dlt-daemon/pulls)。
+请务必遵守 [提交信息规则 (https://at.projects.covesa.org/wiki/display/PROJ/Rules+for+Commit+Messages)
 
 ### Coding Rules
 
-This project is now using clang-format as replacement of uncrustify.
+该项目现在使用 clang-format 代替 uncrustify.
 
-For convenience, any code changes will be harmonized before commit by hooks/pre-commit.
+为方便起见，任何代码变更都将在提交前通过钩子/预提交进行统一.
 
-- Install clang-format
+- 安装 clang-format
 
-- Install pre-commit script by:
+- 安装预提交脚本:
 
   ```bash
   cp scripts/pre-commit.sample .git/hooks/pre-commit
   ```
 
-- Configuration: .clang-format
+- 配置: .clang-format
 
-For reference to clang-format, you can check with:
-[Configurator](https://zed0.co.uk/clang-format-configurator/)
+有关 clang-format 的参考信息，您可以通过:
+[Configurator](https://zed0.co.uk/clang-format-configurator/)查询
 
 ## Known issues
 
-List of open issues can be found on
+未决问题清单见
 [Github](https://github.com/COVESA/dlt-daemon/issues)
 
-- DLT library: Usage of dlt\_user\_log\_write\_float64() and DLT\_FLOAT64()
-  leads to "Illegal instruction (core dumped)" on ARM target.
-- DLT library: Nested calls to DLT\_LOG\_ ... are not supported, and will lead
-  to a deadlock.
-- For Non linux platforms [eg: QNX] IPC supported is UNIX\_SOCKET. For Linux
-  Platforms both IPC FIFO and UNIX\_SOCKET are supported
+- DLT 库: 在 ARM 目标机上使用 dlt\_user\_log\_write\_float64() 和 DLT\_FLOAT64() 会导致 "非法指令（内核已转储）"。
+- DLT 库: 不支持对 DLT\_LOG\_ ...的嵌套调用，这将导致死锁。
+- 对于非 Linux 平台（如 QNX），支持的 IPC 是 UNIX/_SOCKET。对于 Linux 平台，同时支持 IPC FIFO 和 UNIX\_SOCKET
 
 ## Software/Hardware
 
-Developed and tested with Ubuntu Linux 16 64-bit / Intel PC
+使用 Ubuntu Linux 16 64 位/英特尔 PC 开发和测试
 
 ## License
 
-Full information on the license for this software is available in the "LICENSE"
-file.
-Full information on the license for the cityhash code is available in "COPYING"
-file in src/core\_dump\_handler/cityhash\_c.
+有关本软件许可证的完整信息，请参阅 "LICENSE "文件。
+关于 cityhash 代码许可证的完整信息，请参阅 src/core\_dump\_handler/cityhash\_c 中的 "COPYING "文件。
 
 
 ## Contact

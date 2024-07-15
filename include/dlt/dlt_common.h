@@ -1,71 +1,5 @@
-/*
- * SPDX license identifier: MPL-2.0
- *
- * Copyright (C) 2011-2015, BMW AG
- *
- * This file is part of COVESA Project DLT - Diagnostic Log and Trace.
- *
- * This Source Code Form is subject to the terms of the
- * Mozilla Public License (MPL), v. 2.0.
- * If a copy of the MPL was not distributed with this file,
- * You can obtain one at http://mozilla.org/MPL/2.0/.
- *
- * For further information see http://www.covesa.org/.
- */
-
-/*!
- * \author Alexander Wenzel <alexander.aw.wenzel@bmw.de>
- *
- * \copyright Copyright © 2011-2015 BMW AG. \n
- * License MPL-2.0: Mozilla Public License version 2.0 http://mozilla.org/MPL/2.0/.
- *
- * \file dlt_common.h
- */
-
-/*******************************************************************************
-**                                                                            **
-**  SRC-MODULE: dlt_common.h                                                  **
-**                                                                            **
-**  TARGET    : linux                                                         **
-**                                                                            **
-**  PROJECT   : DLT                                                           **
-**                                                                            **
-**  AUTHOR    : Alexander Wenzel Alexander.AW.Wenzel@bmw.de                   **
-**              Markus Klein                                                  **
-**                                                                            **
-**  PURPOSE   :                                                               **
-**                                                                            **
-**  REMARKS   :                                                               **
-**                                                                            **
-**  PLATFORM DEPENDANT [yes/no]: yes                                          **
-**                                                                            **
-**  TO BE CHANGED BY USER [yes/no]: no                                        **
-**                                                                            **
-*******************************************************************************/
-
-/*******************************************************************************
-**                      Author Identity                                       **
-********************************************************************************
-**                                                                            **
-** Initials     Name                       Company                            **
-** --------     -------------------------  ---------------------------------- **
-**  aw          Alexander Wenzel           BMW                                **
-**  mk          Markus Klein               Fraunhofer ESK                     **
-*******************************************************************************/
-
-/*******************************************************************************
-**                      Revision Control History                              **
-*******************************************************************************/
-
-/*
- * $LastChangedRevision: 1670 $
- * $LastChangedDate: 2011-04-08 15:12:06 +0200 (Fr, 08. Apr 2011) $
- * $LastChangedBy$
- * Initials    Date         Comment
- * aw          13.01.2010   initial
- */
 #ifndef DLT_COMMON_H
-#   define DLT_COMMON_H
+#define DLT_COMMON_H
 
 /**
  * \defgroup commonapi DLT 通用应用程序接口
@@ -846,215 +780,215 @@ void dlt_print_hex(uint8_t *ptr, int size);
  */
 DltReturnValue dlt_print_hex_string(char *text, int textlength, uint8_t *ptr, int size);
 /**
- * Helper function to print a byte array in hex and ascii into a string.
- * @param text pointer to a ASCII string, in which the text is written
- * @param textlength maximal size of text buffer
- * @param ptr pointer to the byte array.
- * @param size number of bytes to be printed.
- * @param html output is html? 0 - false, 1 - true
+ * 将字节数组以十六进制和 ascii 打印成字符串的辅助函数。
+ * @param text 指向 ASCII 字符串的指针，文本写入其中
+ * @param textlength 文本缓冲区的最大尺寸
+ * @param ptr 字节数组的指针。
+ * @param size 要打印的字节数。
+ * @param html 输出是否为 html？0 - false，1 - true
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_print_mixed_string(char *text, int textlength, uint8_t *ptr, int size, int html);
 /**
- * Helper function to print a byte array in ascii into a string.
- * @param text pointer to a ASCII string, in which the text is written
- * @param textlength maximal size of text buffer
- * @param ptr pointer to the byte array.
- * @param size number of bytes to be printed.
+ * 将 ascii 字节数组打印成字符串的辅助函数。
+ * @param text 指向 ASCII 字符串的指针，文本写入其中
+ * @param textlength 文本缓冲区的最大尺寸
+ * @param ptr 字节数组的指针。
+ * @param size 要打印的字节数。
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_print_char_string(char **text, int textlength, uint8_t *ptr, int size);
 
 /**
- * Helper function to determine a bounded length of a string.
- * This function returns zero if @a str is a null pointer,
- * and it returns @a maxsize if the null character was not found in the first @a maxsize bytes of @a str.
- * This is a re-implementation of C11's strnlen_s, which we cannot yet assume to be available.
- * @param str pointer to string whose length is to be determined
- * @param maxsize maximal considered length of @a str
- * @return the bounded length of the string
+ * 辅助函数，用于确定字符串的有界长度。
+ * 如果 @a str 是空指针，该函数返回 0、
+ * 如果在 @a str 的前 @a maxsize 字节中没有找到空字符，则返回 @a maxsize。
+ * 这是对 C11 的 strnlen_s 的重新实现，我们还不能假定它是可用的。
+ * @param str 指向长度待定字符串的指针
+ * @param maxsize @a str 的最大考虑长度
+ * @return 字符串的有界长度
  */
 PURE_FUNCTION size_t dlt_strnlen_s(const char* str, size_t maxsize);
 
 /**
- * Helper function to print an id.
- * @param text pointer to ASCII string where to write the id
- * @param id four byte char array as used in DLT mesages as IDs.
+ * 打印 ID 的辅助函数
+ * @param text 指向写入 ID 的 ASCII 字符串的指针
+ * @param id 在 DLT 信息中用作 ID 的四字节字符数组
  */
 void dlt_print_id(char *text, const char *id);
 
 /**
- * Helper function to set an ID parameter.
- * @param id four byte char array as used in DLT mesages as IDs.
- * @param text string to be copied into char array.
+ * 设置 ID 参数的辅助函数.
+ * @param id 在 DLT 信息中用作 ID 的四字节字符数组
+ * @param text 要复制到字符数组中的字符串.
  */
 void dlt_set_id(char *id, const char *text);
 
 /**
- * Helper function to remove not nice to print characters, e.g. NULL or carage return.
- * @param text pointer to string to be cleaned.
- * @param length length of string excluding terminating zero.
+ * 帮助函数，用于删除不适合打印的字符，如 NULL 或 carage return.
+ * @param text 指向要清理的字符串的指针.
+ * @param length 字符串长度，不包括终止零.
  */
 void dlt_clean_string(char *text, int length);
 
 /**
- * Initialise the filter list.
- * This function must be called before using further dlt filter.
- * @param filter pointer to structure of organising DLT filter
- * @param verbose if set to true verbose information is printed out.
+ * 初始化过滤器列表.
+ * 在进一步使用 dlt 过滤器之前必须调用该函数.
+ * @param filter 指向组织 DLT 过滤器结构的指针
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_filter_init(DltFilter *filter, int verbose);
 /**
- * Free the used memory by the organising structure of filter.
- * @param filter pointer to structure of organising DLT filter
- * @param verbose if set to true verbose information is printed out.
+ * 通过过滤器的组织结构释放已使用的内存.
+ * @param filter 指向组织 DLT 过滤器结构的指针
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_filter_free(DltFilter *filter, int verbose);
 /**
- * Load filter list from file.
- * @param filter pointer to structure of organising DLT filter
+ * 从文件加载过滤器列表.
+ * @param filter 指向组织 DLT 过滤器结构的指针
  * @param filename filename to load filters from
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_filter_load(DltFilter *filter, const char *filename, int verbose);
 /**
- * Save filter in space separated list to text file.
- * @param filter pointer to structure of organising DLT filter
- * @param filename filename to safe filters into
- * @param verbose if set to true verbose information is printed out.
+ * 将空格分隔列表中的过滤器保存到文本文件中.
+ * @param filter 指向组织 DLT 过滤器结构的指针
+ * @param filename 保存过滤器的文件名
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_filter_save(DltFilter *filter, const char *filename, int verbose);
 /**
- * Find index of filter in filter list
- * @param filter pointer to structure of organising DLT filter
- * @param apid application id to be found in filter list
- * @param ctid context id to be found in filter list
- * @param log_level log level to be found in filter list
- * @param payload_min minimum payload lenght to be found in filter list
- * @param payload_max maximum payload lenght to be found in filter list
- * @param verbose if set to true verbose information is printed out.
- * @return 如果出现错误则为负值 (or not found), else return index of filter
+ * 在过滤器列表中查找过滤器索引
+ * @param filter 指向组织 DLT 过滤器结构的指针
+ * @param apid 过滤器列表中的应用程序 ID
+ * @param ctid 要在筛选器列表中找到的上下文 ID
+ * @param log_level 在过滤器列表中找到的日志级别
+ * @param payload_min 在筛选器列表中找到的最小有效载荷长度
+ * @param payload_max 在筛选器列表中找到的最大有效载荷长度
+ * @param verbose 如果设置为 true，将打印出详细的信息.
+ * @return 如果出现错误则为负值 (或未找到），否则返回过滤器索引
  */
 int dlt_filter_find(DltFilter *filter, const char *apid, const char *ctid, const int log_level,
                                 const int32_t payload_min, const int32_t payload_max, int verbose);
 /**
- * Add new filter to filter list.
- * @param filter pointer to structure of organising DLT filter
- * @param apid application id to be added to filter list (must always be set).
- * @param ctid context id to be added to filter list. empty equals don't care.
- * @param log_level log level to be added to filter list. 0 equals don't care.
- * @param payload_min min lenght of payload to be added to filter list. 0 equals don't care.
- * @param payload_max max lenght of payload to be added to filter list. INT32_MAX equals don't care.
- * @param verbose if set to true verbose information is printed out.
+ * 在筛选器列表中添加新筛选器.
+ * @param filter 指向组织 DLT 过滤器结构的指针
+ * @param apid 要添加到筛选器列表中的应用程序 ID（必须始终设置）.
+ * @param ctid 要添加到筛选器列表中的上下文 ID, 空表示无所谓
+ * @param log_level 要添加到过滤列表的日志级别,0 表示无所谓
+ * @param payload_min 要添加到过滤列表的有效载荷的最小长度. 0 表示无所谓.
+ * @param payload_max 添加到过滤列表的有效载荷的最大长度. INT32_MAX 表示无所谓.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_filter_add(DltFilter *filter, const char *apid, const char *ctid, const int log_level,
                                 const int32_t payload_min, const int32_t payload_max, int verbose);
 /**
- * Delete filter from filter list
- * @param filter pointer to structure of organising DLT filter
- * @param apid application id to be deleted from filter list
- * @param ctid context id to be deleted from filter list
- * @param log_level log level to be deleted from filter list
- * @param payload_min minimum payload lenght to be deleted from filter list
- * @param payload_max maximum payload lenght to be deleted from filter list
- * @param verbose if set to true verbose information is printed out.
+ * 从过滤器列表中删除过滤器
+ * @param filter 指向组织 DLT 过滤器结构的指针
+ * @param apid 要从过滤器列表中删除的应用程序 ID
+ * @param ctid 要从过滤器列表中删除的上下文 ID
+ * @param log_level 要从过滤器列表中删除的日志级别
+ * @param payload_min 从过滤器列表中删除的最小有效载荷长度
+ * @param payload_max 从过滤器列表中删除的最大有效载荷长度
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_filter_delete(DltFilter *filter, const char *apid, const char *ctid, const int log_level,
                                 const int32_t payload_min, const int32_t payload_max, int verbose);
 
 /**
- * Initialise the structure used to access a DLT message.
- * This function must be called before using further dlt_message functions.
- * @param msg pointer to structure of organising access to DLT messages
- * @param verbose if set to true verbose information is printed out.
+ * 初始化用于访问 DLT 信息的结构.
+ * 在使用其他 dlt_message 函数之前，必须调用该函数.
+ * @param msg 指向组织获取 DLT 信息的结构
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_message_init(DltMessage *msg, int verbose);
 /**
- * Free the used memory by the organising structure of file.
- * @param msg pointer to structure of organising access to DLT messages
- * @param verbose if set to true verbose information is printed out.
+ * 通过文件的组织结构释放已使用的内存.
+ * @param msg 指向组织获取 DLT 信息的结构
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_message_free(DltMessage *msg, int verbose);
 /**
- * Print Header into an ASCII string.
- * This function calls dlt_message_header_flags() with flags=DLT_HEADER_SHOW_ALL
- * @param msg pointer to structure of organising access to DLT messages
- * @param text pointer to a ASCII string, in which the header is written
- * @param textlength maximal size of text buffer
- * @param verbose if set to true verbose information is printed out.
+ * 将Header打印成 ASCII 字符串.
+ * 该函数调用 flags=DLT_HEADER_SHOW_ALL 的 dlt_message_header_flags(）
+ * @param msg 指向组织获取 DLT 信息的结构
+ * @param text 指向 ASCII 字符串的指针，在该字符串中写入header
+ * @param textlength 文本缓冲区的最大尺寸
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_message_header(DltMessage *msg, char *text, size_t textlength, int verbose);
 /**
- * Print Header into an ASCII string, selective.
- * @param msg pointer to structure of organising access to DLT messages
- * @param text pointer to a ASCII string, in which the header is written
- * @param textlength maximal size of text buffer
- * @param flags select, bit-field to select, what should be printed (DLT_HEADER_SHOW_...)
- * @param verbose if set to true verbose information is printed out.
+ * 将Header打印成 ASCII 字符串, 有选择.
+ * @param msg 指向组织获取 DLT 信息的结构
+ * @param text 指向 ASCII 字符串的指针，在该字符串中写入header
+ * @param textlength 文本缓冲区的最大尺寸
+ * @param flags select，用于选择应打印内容的位字段（DLT_HEADER_SHOW_...）
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_message_header_flags(DltMessage *msg, char *text, size_t textlength, int flags, int verbose);
 /**
- * Print Payload into an ASCII string.
- * @param msg pointer to structure of organising access to DLT messages
- * @param text pointer to a ASCII string, in which the header is written
- * @param textlength maximal size of text buffer
- * @param type 1 = payload as hex, 2 = payload as ASCII.
- * @param verbose if set to true verbose information is printed out.
+ * 将有效载荷打印为 ASCII 字符串.
+ * @param msg 指向组织获取 DLT 信息的结构
+ * @param text 指向 ASCII 字符串的指针，在该字符串中写入header
+ * @param textlength 文本缓冲区的最大尺寸
+ * @param type 1 = 有效载荷为十六进制，2 = 有效载荷为 ASCII 编码。
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_message_payload(DltMessage *msg, char *text, size_t textlength, int type, int verbose);
 /**
- * Check if message is filtered or not. All filters are applied (logical OR).
- * @param msg pointer to structure of organising access to DLT messages
- * @param filter pointer to filter
- * @param verbose if set to true verbose information is printed out.
- * @return 1 = filter matches, 0 = filter does not match, 如果出现错误则为负值
+ * 检查消息是否已过滤。应用所有筛选器（逻辑 OR）。
+ * @param msg 指向组织获取 DLT 信息的结构
+ * @param filter 指向过滤器的指针
+ * @param verbose 如果设置为 true，将打印出详细的信息.
+ * @return 1 = 匹配到过滤器, 0 = 没有匹配到过滤器, 如果出现错误则为负值
  */
 DltReturnValue dlt_message_filter_check(DltMessage *msg, DltFilter *filter, int verbose);
 
 /**
- * Read message from memory buffer.
- * Message in buffer has no storage header.
- * @param msg pointer to structure of organising access to DLT messages
- * @param buffer pointer to memory buffer
- * @param length length of message in buffer
- * @param resync if set to true resync to serial header is enforced
- * @param verbose if set to true verbose information is printed out.
+ * 从内存缓冲区读取信息.
+ * 缓冲区中的信息没有存储头.
+ * @param msg 指向组织获取 DLT 信息的结构
+ * @param buffer 内存缓冲区指针
+ * @param length 缓冲区中的信息长度
+ * @param resync 如果设置为 "true"，则会执行与串行报头的重新同步
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 int dlt_message_read(DltMessage *msg, uint8_t *buffer, unsigned int length, int resync, int verbose);
 
 /**
- * Get standard header extra parameters
- * @param msg pointer to structure of organising access to DLT messages
- * @param verbose if set to true verbose information is printed out.
+ * 获取标准标头额外参数
+ * @param msg 指向组织获取 DLT 信息的结构
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_message_get_extraparameters(DltMessage *msg, int verbose);
 
 /**
- * Set standard header extra parameters
- * @param msg pointer to structure of organising access to DLT messages
- * @param verbose if set to true verbose information is printed out.
+ * 设置标准标头额外参数
+ * @param msg 指向组织获取 DLT 信息的结构
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_message_set_extraparameters(DltMessage *msg, int verbose);
 
 /**
- * Initialise the structure used to access a DLT file.
- * This function must be called before using further dlt_file functions.
- * @param file pointer to structure of organising access to DLT file
- * @param verbose if set to true verbose information is printed out.
+ * 初始化用于访问 DLT 文件的结构.
+ * 在使用其他 dlt_file 函数之前，必须调用该函数.
+ * @param file 指向组织访问 DLT 文件的结构的指针
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_file_init(DltFile *file, int verbose);
@@ -1065,7 +999,7 @@ DltReturnValue dlt_file_init(DltFile *file, int verbose);
  * The filter list is not copied, so take care to keep list in memory.
  * @param file pointer to structure of organising access to DLT file
  * @param filter pointer to filter list array
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_file_set_filter(DltFile *file, DltFilter *filter, int verbose);
@@ -1073,7 +1007,7 @@ DltReturnValue dlt_file_set_filter(DltFile *file, DltFilter *filter, int verbose
  * Initialising loading a DLT file.
  * @param file pointer to structure of organising access to DLT file
  * @param filename filename of DLT file
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_file_open(DltFile *file, const char *filename, int verbose);
@@ -1084,7 +1018,7 @@ DltReturnValue dlt_file_open(DltFile *file, const char *filename, int verbose);
  * @param file pointer to structure of organizing access to DLT file
  * @param filename file to contain parsed DLT messages.
  * @param type 1 = payload as hex, 2 = payload as ASCII.
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 0 = message does not match filter, 1 = message was read, 如果出现错误则为负值
  */
 DltReturnValue dlt_file_quick_parsing(DltFile *file, const char *filename, int type, int verbose);
@@ -1093,7 +1027,7 @@ DltReturnValue dlt_file_quick_parsing(DltFile *file, const char *filename, int t
  * This function finds the next message in the DLT file.
  * If a filter is set, the filter list is used.
  * @param file pointer to structure of organising access to DLT file
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 0 = message does not match filter, 1 = message was read, 如果出现错误则为负值
  */
 DltReturnValue dlt_file_read(DltFile *file, int verbose);
@@ -1103,21 +1037,21 @@ DltReturnValue dlt_file_read(DltFile *file, int verbose);
  * If a filter is set, the filter list is used.
  * @param file pointer to structure of organising access to DLT file
  * @param resync Resync to serial header when set to true
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 0 = message does not match filter, 1 = message was read, 如果出现错误则为负值
  */
 DltReturnValue dlt_file_read_raw(DltFile *file, int resync, int verbose);
 /**
  * Closing loading a DLT file.
  * @param file pointer to structure of organising access to DLT file
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_file_close(DltFile *file, int verbose);
 /**
  * Load standard header of a message from file
  * @param file pointer to structure of organising access to DLT file
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_file_read_header(DltFile *file, int verbose);
@@ -1125,7 +1059,7 @@ DltReturnValue dlt_file_read_header(DltFile *file, int verbose);
  * Load standard header of a message from file in RAW format (without storage header)
  * @param file pointer to structure of organising access to DLT file
  * @param resync Resync to serial header when set to true
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_file_read_header_raw(DltFile *file, int resync, int verbose);
@@ -1134,7 +1068,7 @@ DltReturnValue dlt_file_read_header_raw(DltFile *file, int resync, int verbose);
  * extended header of a message from file
  * (dlt_file_read_header() must have been called before this call!)
  * @param file pointer to structure of organising access to DLT file
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_file_read_header_extended(DltFile *file, int verbose);
@@ -1142,7 +1076,7 @@ DltReturnValue dlt_file_read_header_extended(DltFile *file, int verbose);
  * Load payload of a message from file
  * (dlt_file_read_header() must have been called before this call!)
  * @param file pointer to structure of organising access to DLT file
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_file_read_data(DltFile *file, int verbose);
@@ -1151,14 +1085,14 @@ DltReturnValue dlt_file_read_data(DltFile *file, int verbose);
  * If filters are set, index is based on the filtered list.
  * @param file pointer to structure of organising access to DLT file
  * @param index position of message in the files beginning from zero
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return number of messages loaded, 如果出现错误则为负值
  */
 DltReturnValue dlt_file_message(DltFile *file, int index, int verbose);
 /**
  * Free the used memory by the organising structure of file.
  * @param file pointer to structure of organising access to DLT file
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_file_free(DltFile *file, int verbose);
@@ -1477,64 +1411,64 @@ uint32_t dlt_uptime(void);
 
 /**
  * Print header of a DLT message
- * @param message pointer to structure of organising access to DLT messages
- * @param text pointer to a ASCII string, in which the header is written
- * @param size maximal size of text buffer
- * @param verbose if set to true verbose information is printed out.
+ * @param message 指向组织获取 DLT 信息的结构
+ * @param text 指向 ASCII 字符串的指针，在该字符串中写入header
+ * @param size 文本缓冲区的最大尺寸
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_message_print_header(DltMessage *message, char *text, uint32_t size, int verbose);
 
 /**
  * Print payload of a DLT message as Hex-Output
- * @param message pointer to structure of organising access to DLT messages
+ * @param message 指向组织获取 DLT 信息的结构
  * @param text pointer to a ASCII string, in which the output is written
- * @param size maximal size of text buffer
- * @param verbose if set to true verbose information is printed out.
+ * @param size 文本缓冲区的最大尺寸
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_message_print_hex(DltMessage *message, char *text, uint32_t size, int verbose);
 
 /**
  * Print payload of a DLT message as ASCII-Output
- * @param message pointer to structure of organising access to DLT messages
+ * @param message 指向组织获取 DLT 信息的结构
  * @param text pointer to a ASCII string, in which the output is written
- * @param size maximal size of text buffer
- * @param verbose if set to true verbose information is printed out.
+ * @param size 文本缓冲区的最大尺寸
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_message_print_ascii(DltMessage *message, char *text, uint32_t size, int verbose);
 
 /**
  * Print payload of a DLT message as Mixed-Ouput (Hex and ASCII), for plain text output
- * @param message pointer to structure of organising access to DLT messages
+ * @param message 指向组织获取 DLT 信息的结构
  * @param text pointer to a ASCII string, in which the output is written
- * @param size maximal size of text buffer
- * @param verbose if set to true verbose information is printed out.
+ * @param size 文本缓冲区的最大尺寸
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_message_print_mixed_plain(DltMessage *message, char *text, uint32_t size, int verbose);
 
 /**
  * Print payload of a DLT message as Mixed-Ouput (Hex and ASCII), for HTML text output
- * @param message pointer to structure of organising access to DLT messages
+ * @param message 指向组织获取 DLT 信息的结构
  * @param text pointer to a ASCII string, in which the output is written
- * @param size maximal size of text buffer
- * @param verbose if set to true verbose information is printed out.
+ * @param size 文本缓冲区的最大尺寸
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_message_print_mixed_html(DltMessage *message, char *text, uint32_t size, int verbose);
 
 /**
  * Decode and print a argument of a DLT message
- * @param msg pointer to structure of organising access to DLT messages
+ * @param msg 指向组织获取 DLT 信息的结构
  * @param type_info Type of argument
  * @param ptr pointer to pointer to data (pointer to data is changed within this function)
  * @param datalength pointer to datalength (datalength is changed within this function)
  * @param text pointer to a ASCII string, in which the output is written
- * @param textlength maximal size of text buffer
+ * @param textlength 文本缓冲区的最大尺寸
  * @param byteLength If argument is a string, and this value is 0 or greater, this value will be taken as string length
- * @param verbose if set to true verbose information is printed out.
+ * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_message_argument_print(DltMessage *msg,

@@ -1,18 +1,3 @@
-#######
-# SPDX license identifier: MPL-2.0
-#
-# Copyright(C) 2011-2015, BMW AG
-#
-# This file is part of COVESA Project DLT - Diagnostic Log and Trace.
-#
-# This Source Code Form is subject to the terms of the
-# Mozilla Public License(MPL), v. 2.0.
-# If a copy of the MPL was not distributed with this file,
-# You can obtain one at http://mozilla.org/MPL/2.0/.
-#
-# For further information see http://www.covesa.org/.
-#######
-
 # Set minimum Cmake version and setup policy behavior
 cmake_minimum_required(VERSION 3.3)
 
@@ -41,97 +26,93 @@ else(DLT_REVISION MATCHES "")
     set(PRINT_REVISION ${DLT_REVISION})
 endif()
 
-# set default build type, if not defined by user
+# 如果用户没有定义，则设置默认构建类型
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING
-                         "Choose build type: Debug, Release, RelWithDebInfo, MinSizeRel."
+                         "选择建造类型: Debug, Release, RelWithDebInfo, MinSizeRel."
                          FORCE)
-    message(STATUS "Build type not defined. Using default build type 'RelWithDebInfo'.")
+    message(STATUS "未定义构建类型。使用默认构建类型 "RelWithDebInfo.")
 endif()
 
 include(CMakeDependentOption)
 
-# Set of indiviual options
-option(BUILD_SHARED_LIBS "Set to OFF to build static libraries"                                                      ON)
-option(WITH_SYSTEMD "Set to ON to create unit files and systemd check on dlt-daemon startup"                         OFF)
-option(WITH_SYSTEMD_WATCHDOG "Set to ON to use the systemd watchdog in dlt-daemon"                                   OFF)
-option(WITH_SYSTEMD_WATCHDOG_ENFORCE_MSG_RX "Set to ON to trigger systemd watchdog of dlt-daemon only
-                                             when a message was received since the last trigger"                     OFF)
-option(WITH_SYSTEMD_WATCHDOG_ENFORCE_MSG_RX_DLT_SYSTEM "Set to ON to trigger systemd watchdog of dlt-system
-                                                        only when a message was received since the last trigger"     OFF)
-option(WITH_SYSTEMD_JOURNAL "Set to ON to use the systemd journal in dlt-system"                                     OFF)
-option(WITH_SYSTEMD_SOCKET_ACTIVATION "Set to ON to use systemd socket activation"                                   OFF)
-option(WITH_DOC "Set to ON to build documentation target"                                                            OFF)
-option(WITH_MAN "Set to ON to build man pages"                                                                       OFF)
-option(WITH_CHECK_CONFIG_FILE "Set to ON to create a configure file of CheckIncludeFiles, CheckFunctionExists"       OFF)
-option(WITH_TESTSCRIPTS "Set to ON to run CMakeLists.txt in testscripts"                                             OFF)
-option(WITH_GPROF "Set -pg to compile flags"                                                                         OFF)
-option(WITH_DLTTEST "Set to ON to build with modifications to test User-Daemon communication with corrupt messages"  OFF)
-option(WITH_DLT_SHM_ENABLE "EXPERIMENTAL! Set to ON to use shared memory as IPC. EXPERIMENTAL!"                      OFF)
-option(WITH_DLT_ADAPTOR "Set to ON to build src/adaptor binaries"                                                    OFF)
-option(WITH_DLT_ADAPTOR_STDIN "Set to ON to build src/adaptor/stdin binaries"                                        OFF)
-option(WITH_DLT_ADAPTOR_UDP "Set to ON to build src/adaptor/udp binaries"                                            OFF)
-option(WITH_DLT_CONSOLE "Set to ON to build src/console binaries"                                                    ON)
-option(WITH_DLT_CONSOLE_WO_CTRL "Set to ON not to build control commands under src/console"                          OFF)
-option(WITH_DLT_CONSOLE_WO_SBTM "Set to ON not to build dlt-sortbytimestamp under src/console"                       OFF)
-option(WITH_DLT_CONSOLE_RECEIVE "Set to OFF to skip building dlt_receive"                                            ON)
-option(WITH_DLT_CONSOLE_CONVERT "Set to OFF to skip building dlt_convert"                                            ON)
-option(WITH_DLT_CONSOLE_CONTROL "Set to OFF to skip building dlt_control"                                            ON)
-option(WITH_DLT_CONSOLE_PASSIVE_NODE_CTRL "Set to OFF to skip building dlt_passive_node_ctrl"                        ON)
+# 一组独立选项
+option(BUILD_SHARED_LIBS "设置为 OFF 可构建静态库"                                                      ON)
+option(WITH_SYSTEMD "设置为 ON 可在 dlt-daemon 启动时创建单元文件并进行 systemd 检查"                         OFF)
+option(WITH_SYSTEMD_WATCHDOG "设置为 ON 可在 dlt-daemon 中使用 systemd 进程监视程序"                                   OFF)
+option(WITH_SYSTEMD_WATCHDOG_ENFORCE_MSG_RX "设为 ON，只有在上次触发后收到信息时才触发 dlt-daemon 的 systemd 进程监视程序"  OFF)
+option(WITH_SYSTEMD_WATCHDOG_ENFORCE_MSG_RX_DLT_SYSTEM "设为 ON，只有在上一次触发后收到信息时才触发 dlt-system 的 systemd 进程监视程序"     OFF)
+option(WITH_SYSTEMD_JOURNAL "设置为 ON，可在 dlt-system 中使用 systemd 日志"                                     OFF)
+option(WITH_SYSTEMD_SOCKET_ACTIVATION "设置为 ON 可使用 systemd socket 激活"                                   OFF)
+option(WITH_DOC "设置为 "ON"，以构建文档Target"                                                            OFF)
+option(WITH_MAN "设置为 "ON"，以构建手册页面"                                                                       OFF)
+option(WITH_CHECK_CONFIG_FILE "设置为 ON 时，将创建 CheckIncludeFiles、CheckFunctionExists 的配置文件。"       OFF)
+option(WITH_TESTSCRIPTS "设置为 ON 可在测试脚本中运行 CMakeLists.txt"                                             OFF)
+option(WITH_GPROF "设置 -pg 为编译标志"                                                                         OFF)
+option(WITH_DLTTEST "设置为 "ON "时，将进行修改后的构建，以测试带损坏报文的用户--守护进程通信"  OFF)
+option(WITH_DLT_SHM_ENABLE "实验！设置为 "ON "可将共享内存用作 IPC。试验性！"                      OFF)
+option(WITH_DLT_ADAPTOR "设置为 ON 可构建 src/adaptor 二进制文件"                                                    OFF)
+option(WITH_DLT_ADAPTOR_STDIN "设置为 ON 可构建 src/adaptor/stdin 二进制文件"                                        OFF)
+option(WITH_DLT_ADAPTOR_UDP "设置为 ON 可构建 src/adaptor/udp 二进制文件"                                            OFF)
+option(WITH_DLT_CONSOLE "设置为 ON 可构建 src/console 二进制文件"                                                    ON)
+option(WITH_DLT_CONSOLE_WO_CTRL "设置为开，不在 src/console 下构建控制命令"                          OFF)
+option(WITH_DLT_CONSOLE_WO_SBTM "设置为 ON 时，不在 src/console 下构建 dlt-sortbytimestamp"                       OFF)
+option(WITH_DLT_CONSOLE_RECEIVE "设置为 OFF 时跳过构建 dlt_receive。"                                            ON)
+option(WITH_DLT_CONSOLE_CONVERT "设置为 OFF 可跳过构建 dlt_convert"                                            ON)
+option(WITH_DLT_CONSOLE_CONTROL "设置为 OFF 可跳过构建 dlt_control"                                            ON)
+option(WITH_DLT_CONSOLE_PASSIVE_NODE_CTRL "设置为 OFF 可跳过构建 dlt_passive_node_ctrl"                        ON)
 
-option(WITH_DLT_EXAMPLES "Set to ON to build src/examples binaries"                                                  ON)
-option(WITH_DLT_FILETRANSFER "Set to ON to build dlt-system with filetransfer support"                               OFF)
-option(WITH_DLT_SYSTEM "Set to ON to build src/system binaries"                                                      OFF)
-option(WITH_DLT_DBUS "Set to ON to build src/dbus binaries"                                                          OFF)
-option(WITH_DLT_TESTS "Set to ON to build src/test binaries"                                                         ON)
-option(WITH_DLT_UNIT_TESTS "Set to ON to build gtest framework and tests/binaries"                                   OFF)
-cmake_dependent_option(WITH_DLT_INSTALLED_TESTS "Set to ON to install tests/binaries"                                OFF WITH_DLT_UNIT_TESTS OFF)
-option(WITH_DLT_COVERAGE "Set to ON to generate coverage report for dlt-daemon source code"                          OFF)
-option(BUILD_GMOCK "Set to ON to enable gmock build"                                                                 OFF)
-option(WITH_GIT_SUBMODULE "Set to ON to update submodules during build"                                              OFF)
-option(WITH_DLT_QNX_SYSTEM "Set to ON to build QNX system binary dlt-qnx-system"                                     OFF)
-option(WITH_DLT_FILE_LOGGING_SYSLOG_FALLBACK "Set to ON to enable fallback to syslog if dlt logging to file fails"   OFF)
-option(WITH_DLT_NETWORK_TRACE "Set to ON to enable network trace (if message queue is supported)"                    ON)
-option(WITH_DLT_LOG_LEVEL_APP_CONFIG "Set to ON to enable default log levels based on application ids"               OFF)
+option(WITH_DLT_EXAMPLES "设置为 ON 可构建 src/examples 二进制文件"                                                  ON)
+option(WITH_DLT_FILETRANSFER "设置为 ON 可构建支持文件传输的 dlt 系统"                               OFF)
+option(WITH_DLT_SYSTEM "设置为 ON 可构建 src/system 二进制文件"                                                      OFF)
+option(WITH_DLT_DBUS "设置为 ON 可构建 src/dbus 二进制文件"                                                          OFF)
+option(WITH_DLT_TESTS "设置为 ON 可构建 src/test 二进制文件"                                                         ON)
+option(WITH_DLT_UNIT_TESTS "设置为 "开启"，以构建 gtest 框架和测试/二进制文件"                                   OFF)
+cmake_dependent_option(WITH_DLT_INSTALLED_TESTS "设置为 "开启 "可安装测试/二进制文件"                                OFF WITH_DLT_UNIT_TESTS OFF)
+option(WITH_DLT_COVERAGE "设置为 ON，可生成 dlt-daemon 源代码的覆盖率报告"                          OFF)
+option(BUILD_GMOCK "设置为 ON 可启用 gmock 构建"                                                                 OFF)
+option(WITH_GIT_SUBMODULE "设置为 ON 时，在构建过程中更新子模块"                                              OFF)
+option(WITH_DLT_QNX_SYSTEM "设置为 ON 可构建 QNX 系统二进制 dlt-qnx-system"                                     OFF)
+option(WITH_DLT_FILE_LOGGING_SYSLOG_FALLBACK "设置为 ON 可在 dlt 记录到文件失败时启用回退到系统日志"   OFF)
+option(WITH_DLT_NETWORK_TRACE "设置为 ON 可启用网络跟踪（如果支持消息队列）"                    ON)
+option(WITH_DLT_LOG_LEVEL_APP_CONFIG "设置为 ON 可启用基于应用程序 ID 的默认日志级别"               OFF)
 
 set(DLT_IPC "FIFO"
     CACHE STRING "UNIX_SOCKET,FIFO")
-set(DLT_USER "covesa"
-    CACHE STRING "Set user for process not run as root")
+set(DLT_USER "bydos"
+    CACHE STRING "为不以 root 用户身份运行的进程设置用户")
 set(DLT_QNX_SLOG_ADAPTER_WAIT_BUFFER_TIMEOUT_MS "100"
-    CACHE STRING "Timeout in milliseconds to wait before messages are dropped when input buffer is full")
+    CACHE STRING "当输入缓冲区已满时,在丢弃信息前等待的超时,以毫秒为单位")
 
-option(WITH_DLT_PKGCONFIG "Set to ON to generate pkgconfig .pc files"                                                ON)
-option(WITH_DLT_CXX11_EXT "Set to ON to build C++11 extensions"                                                      OFF)
-option(WITH_DLT_COREDUMPHANDLER "EXPERIMENTAL! Set to ON to build src/core_dump_handler binaries. EXPERIMENTAL"      OFF)
-option(WITH_DLT_LOGSTORAGE_CTRL_UDEV "PROTOTYPE! Set to ON to build logstorage control with udev support"            OFF)
-option(WITH_DLT_LOGSTORAGE_GZIP "Set to ON to build logstorage control with gzip compression support"                OFF)
-option(WITH_DLT_USE_IPv6 "Set to ON for IPv6 support"                                                                ON)
-option(WITH_DLT_KPI "Set to ON to build src/kpi binaries"                                                            OFF)
-option(WITH_DLT_FATAL_LOG_TRAP "Set to ON to enable DLT_LOG_FATAL trap(trigger segv inside dlt-user library)"        OFF)
-option(WITH_UDP_CONNECTION "Set to ON to enable dlt UDP multicast SUPPORT"                                           OFF)
-option(WITH_LIB_SHORT_VERSION "Set to ON to build library with only major number in version"                         OFF)
-option(WITH_DLT_DISABLE_MACRO "Set to ON to build code without Macro interface support"                              OFF)
-option(WITH_LEGACY_INCLUDE_PATH "Set to ON to add <prefix>/dlt to include paths
-                                 for the CMake config file, in addition to only <prefix>"                            ON)
-option(WITH_EXTENDED_FILTERING "Set to OFF to build without extended filtering.
-                                Json filter only supports Linux based system with json-c and QNX"                    OFF)
+option(WITH_DLT_PKGCONFIG "设置为 ON 可生成 pkgconfig .pc 文件"                                                ON)
+option(WITH_DLT_CXX11_EXT "设置为 "开启 "可构建 C++11 扩展"                                                      OFF)
+option(WITH_DLT_COREDUMPHANDLER "实验！设置为 ON 可构建 src/core_dump_handler 二进制文件。试验性"      OFF)
+option(WITH_DLT_LOGSTORAGE_CTRL_UDEV "PROTOTYPE！设置为 ON，以建立支持 udev 的日志存储控制"            OFF)
+option(WITH_DLT_LOGSTORAGE_GZIP "设置为 ON，以构建支持 gzip 压缩的日志存储控制"                OFF)
+option(WITH_DLT_USE_IPv6 "设置为 ON 以支持 IPv6"                                                                ON)
+option(WITH_DLT_KPI "设置为 ON 可构建 src/kpi 二进制文件"                                                            OFF)
+option(WITH_DLT_FATAL_LOG_TRAP "设置为 ON 可启用 DLT_LOG_FATAL 陷阱（在 dlt-user 库内触发 segv)"        OFF)
+option(WITH_UDP_CONNECTION "设置为 ON 可启用 dlt UDP 多播支持"                                           OFF)
+option(WITH_LIB_SHORT_VERSION "设置为 "ON "时，构建的程序库版本中只有主版本号" OFF)
+option(WITH_DLT_DISABLE_MACRO "设置为 "ON"，可在不支持宏接口的情况下构建代码" OFF)
+option(WITH_LEGACY_INCLUDE_PATH "设置为 ON 时，除了 <prefix> 以外，还将 <prefix>/dlt 添加到 CMake 配置文件的包含路径中。" ON)
+option(WITH_EXTENDED_FILTERING "设置为 OFF 则不使用扩展过滤功能。Json 过滤器仅支持使用 json-c 和 QNX 的 Linux 系统" OFF)
 
-option(WITH_DLT_DAEMON_VSOCK_IPC "Set to ON to enable VSOCK support in daemon"                                       OFF)
-option(WITH_DLT_LIB_VSOCK_IPC "Set to ON to enable VSOCK support in library (DLT_IPC is not used in library)"        OFF)
+option(WITH_DLT_DAEMON_VSOCK_IPC "设为 ON 可在守护进程中启用 VSOCK 支持" OFF)
+option(WITH_DLT_LIB_VSOCK_IPC "设置为 ON 可启用库中的 VSOCK 支持（库中不使用 DLT_IPC）" OFF)
 
 set(DLT_VSOCK_PORT "13490"
-    CACHE STRING "VSOCK port number for logging traffic.")
+    CACHE STRING "用于记录流量的 VSOCK 端口号")
 set(DLT_WRITEV_TIMEOUT_SEC "1"
-    CACHE STRING "Set sec timeout for writev to prevent blocking indefinitely")
+    CACHE STRING "为 writev 设置秒超时，以防止无限阻塞")
 set(DLT_WRITEV_TIMEOUT_USEC "0"
-    CACHE STRING "Set usec timeout for writev to prevent blocking indefinitely")
+    CACHE STRING "为 writev 设置 usec 超时，以防止无限阻塞")
 
-# RPM settings
+# RPM 设置
 set(COVESA_RPM_RELEASE "1")  # ${DLT_REVISION}
 set(LICENSE "Mozilla Public License Version 2.0")
 
-# Build, project and include settings
+# 构建、项目和包含设置
 find_package(Threads REQUIRED)
 if(WITH_DLT_LOGSTORAGE_GZIP)
     find_package(ZLIB 1.2.9 REQUIRED)

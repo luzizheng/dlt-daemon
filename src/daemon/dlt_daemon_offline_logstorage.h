@@ -90,7 +90,7 @@ int dlt_daemon_logstorage_get_loglevel(DltDaemon *daemon,
  * @param daemon        Pointer to DLT Daemon structure
  * @param daemon_local  Pointer to DLT Daemon local structure
  * @param dev_num       Number of attached DLT Logstorage device
- * @param verbose       If set to true verbose information is printed out
+ * @param verbose       如果设置为 true，将打印出详细的信息
  */
 void dlt_daemon_logstorage_reset_application_loglevel(DltDaemon *daemon,
                                                       DltDaemonLocal *daemon_local,
@@ -108,7 +108,7 @@ void dlt_daemon_logstorage_reset_application_loglevel(DltDaemon *daemon,
  * @param daemon        Pointer to DLT Daemon structure
  * @param daemon_local  Pointer to DLT Daemon local structure
  * @param dev_num       Number of attached DLT Logstorage device
- * @param verbose       if set to true verbose information is printed out
+ * @param verbose       如果设置为 true，将打印出详细的信息
  */
 void dlt_daemon_logstorage_update_application_loglevel(DltDaemon *daemon,
                                                        DltDaemonLocal *daemon_local,
@@ -149,7 +149,7 @@ int dlt_daemon_logstorage_write(DltDaemon *daemon,
  * @param daemon        Pointer to Dlt Daemon structure
  * @param daemon_local  Pointer to Dlt Daemon Local structure
  * @param path          User configured internal storage path
- * @param verbose       If set to true verbose information is printed out
+ * @param verbose       如果设置为 true，将打印出详细的信息
  */
 int dlt_daemon_logstorage_setup_internal_storage(DltDaemon *daemon,
                                                  DltDaemonLocal *daemon_local,
@@ -168,7 +168,7 @@ void dlt_daemon_logstorage_set_logstorage_cache_size(unsigned int size);
  *
  * @param daemon       Pointer to Dlt Daemon structure
  * @param daemon_local Pointer to Dlt Daemon Local structure
- * @param verbose      If set to true verbose information is printed out
+ * @param verbose      如果设置为 true，将打印出详细的信息
  */
 int dlt_daemon_logstorage_cleanup(DltDaemon *daemon,
                                   DltDaemonLocal *daemon_local,
@@ -180,7 +180,7 @@ int dlt_daemon_logstorage_cleanup(DltDaemon *daemon,
  * @param daemon        Pointer to Dlt Daemon structure
  * @param daemon_local  Pointer to Dlt Daemon Local structure
  * @param mnt_point     Logstorage device mount point
- * @param verbose       If set to true verbose information is printed out
+ * @param verbose       如果设置为 true，将打印出详细的信息
  * @return 0 on success, -1 otherwise
  */
 int dlt_daemon_logstorage_sync_cache(DltDaemon *daemon,
@@ -196,7 +196,7 @@ int dlt_daemon_logstorage_sync_cache(DltDaemon *daemon,
  * @param daemon        Pointer to Dlt Daemon structure
  * @param daemon_local  Pointer to Dlt Daemon Local structure
  * @param mnt_point     Logstorage device mount point
- * @param verbose       If set to true verbose information is printed out
+ * @param verbose       如果设置为 true，将打印出详细的信息
  * @return handle to Logstorage device on success, NULL otherwise
  */
 DltLogStorage *dlt_daemon_logstorage_get_device(DltDaemon *daemon,
