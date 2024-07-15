@@ -133,7 +133,7 @@ typedef struct
  */
 typedef struct
 {
-    char apid[DLT_ID_SIZE];                   /**< application id */
+    char apid[DLT_ID_SIZE];                   /**< application id (应用ID) */
     pid_t pid;                   /**< process id of user application */
     int user_handle;    /**< connection handle for connection to user application */
     bool owns_user_handle; /**< user_handle should be closed when reset */
@@ -150,8 +150,8 @@ typedef struct
  */
 typedef struct
 {
-    char apid[DLT_ID_SIZE];               /**< application id */
-    char ctid[DLT_ID_SIZE];               /**< context id */
+    char apid[DLT_ID_SIZE];               /**< application id (应用ID) */
+    char ctid[DLT_ID_SIZE];               /**< context id (上下文ID) */
     int8_t log_level;        /**< the current log level of the context */
     int8_t trace_status;    /**< the current trace status of the context */
     int log_level_pos;  /**< offset of context in context field on user application */
@@ -222,7 +222,7 @@ typedef struct
  * @param InitialContextTraceStatus tracestatus to be sent to context when those register with tracestatus default, read from dlt.conf
  * @param ForceLLTS force default log-level
  * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 int dlt_daemon_init(DltDaemon *daemon,
                     unsigned long RingbufferMinSize,
@@ -237,7 +237,7 @@ int dlt_daemon_init(DltDaemon *daemon,
  * De-Initialise the dlt daemon structure
  * @param daemon pointer to dlt daemon structure
  * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 int dlt_daemon_free(DltDaemon *daemon, int verbose);
 /**
@@ -327,7 +327,7 @@ DltDaemonApplication *dlt_daemon_application_add(DltDaemon *daemon,
  * @param application pointer to application to be deleted
  * @param ecu pointer to ecu id of node to delete applications
  * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 int dlt_daemon_application_del(DltDaemon *daemon,
                                DltDaemonApplication *application,
@@ -350,7 +350,7 @@ DltDaemonApplication *dlt_daemon_application_find(DltDaemon *daemon,
  * @param daemon pointer to dlt daemon structure
  * @param filename name of file to be used for loading
  * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 int dlt_daemon_applications_load(DltDaemon *daemon, const char *filename, int verbose);
 /**
@@ -358,7 +358,7 @@ int dlt_daemon_applications_load(DltDaemon *daemon, const char *filename, int ve
  * @param daemon pointer to dlt daemon structure
  * @param filename name of file to be used for saving
  * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 int dlt_daemon_applications_save(DltDaemon *daemon, const char *filename, int verbose);
 /**
@@ -367,7 +367,7 @@ int dlt_daemon_applications_save(DltDaemon *daemon, const char *filename, int ve
  * @param ecu node these applications running on.
  * @param fd file descriptor
  * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 int dlt_daemon_applications_invalidate_fd(DltDaemon *daemon,
                                           char *ecu,
@@ -378,7 +378,7 @@ int dlt_daemon_applications_invalidate_fd(DltDaemon *daemon,
  * @param daemon pointer to dlt daemon structure
  * @param ecu pointer to ecu id of node to clear applications
  * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 int dlt_daemon_applications_clear(DltDaemon *daemon, char *ecu, int verbose);
 
@@ -412,7 +412,7 @@ DltDaemonContext *dlt_daemon_context_add(DltDaemon *daemon,
  * @param context pointer to context to be deleted
  * @param ecu pointer to ecu id of node to delete application
  * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 int dlt_daemon_context_del(DltDaemon *daemon,
                            DltDaemonContext *context,
@@ -438,7 +438,7 @@ DltDaemonContext *dlt_daemon_context_find(DltDaemon *daemon,
  * @param ecu node these contexts running on.
  * @param fd file descriptor
  * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 int dlt_daemon_contexts_invalidate_fd(DltDaemon *daemon,
                                       char *ecu,
@@ -449,7 +449,7 @@ int dlt_daemon_contexts_invalidate_fd(DltDaemon *daemon,
  * @param daemon pointer to dlt daemon structure
  * @param ecu pointer to ecu id of node to clear contexts
  * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 int dlt_daemon_contexts_clear(DltDaemon *daemon, char *ecu, int verbose);
 /**
@@ -457,7 +457,7 @@ int dlt_daemon_contexts_clear(DltDaemon *daemon, char *ecu, int verbose);
  * @param daemon pointer to dlt daemon structure
  * @param filename name of file to be used for loading
  * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 int dlt_daemon_contexts_load(DltDaemon *daemon, const char *filename, int verbose);
 /**
@@ -465,7 +465,7 @@ int dlt_daemon_contexts_load(DltDaemon *daemon, const char *filename, int verbos
  * @param daemon pointer to dlt daemon structure
  * @param filename name of file to be used for saving
  * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 int dlt_daemon_contexts_save(DltDaemon *daemon, const char *filename, int verbose);
 /**
@@ -473,7 +473,7 @@ int dlt_daemon_contexts_save(DltDaemon *daemon, const char *filename, int verbos
  * @param daemon pointer to dlt daemon structure
  * @param filename name of file to be used for loading
  * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 int dlt_daemon_configuration_load(DltDaemon *daemon, const char *filename, int verbose);
 /**
@@ -481,7 +481,7 @@ int dlt_daemon_configuration_load(DltDaemon *daemon, const char *filename, int v
  * @param daemon pointer to dlt daemon structure
  * @param filename name of file to be used for saving
  * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 int dlt_daemon_configuration_save(DltDaemon *daemon, const char *filename, int verbose);
 
@@ -491,7 +491,7 @@ int dlt_daemon_configuration_save(DltDaemon *daemon, const char *filename, int v
  * @param daemon pointer to dlt daemon structure
  * @param context pointer to context for response
  * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 int dlt_daemon_user_send_log_level(DltDaemon *daemon, DltDaemonContext *context, int verbose);
 
@@ -500,7 +500,7 @@ int dlt_daemon_user_send_log_level(DltDaemon *daemon, DltDaemonContext *context,
  * @param daemon pointer to dlt daemon structure
  * @param app pointer to application for response
  * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 int dlt_daemon_user_send_log_state(DltDaemon *daemon, DltDaemonApplication *app, int verbose);
 

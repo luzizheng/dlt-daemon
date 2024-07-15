@@ -177,7 +177,7 @@ void dlt_daemon_control_service_response(int sock,
                                          int8_t status,
                                          int verbose);
 /**
- * Send control message unregister context (add on to AUTOSAR standard)
+ * Send control message 取消注册上下文 (add on to AUTOSAR standard)
  * @param sock connection handle used for sending response
  * @param daemon pointer to dlt daemon structure
  * @param daemon_local pointer to dlt daemon local structure

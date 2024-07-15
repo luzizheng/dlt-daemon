@@ -57,49 +57,49 @@
 #include "dlt.h"
 
 /**
- * Create an object for a new context.
- * Common API with DLT Embedded
- * This macro has to be called first for every.
- * @param CONTEXT object containing information about one special logging context
+ * 为新上下文创建对象。
+ * 嵌入 DLT 的通用应用程序接口
+ * 每次都必须先调用这个宏.
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
  */
 /* #define DLT_DECLARE_CONTEXT(CONTEXT) */
 /* UNCHANGED */
 
 /**
- * Use an object of a new context created in another module.
- * Common API with DLT Embedded
- * This macro has to be called first for every.
- * @param CONTEXT object containing information about one special logging context
+ * 使用另一个模块创建的新上下文对象。
+ * 嵌入 DLT 的通用应用程序接口
+ * 每次都必须先调用这个宏.
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
  */
 /* #define DLT_IMPORT_CONTEXT(CONTEXT) */
 /* UNCHANGED */
 
 /**
- * Register application.
- * Common API with DLT Embedded
- * @param APPID application id with maximal four characters
- * @param DESCRIPTION ASCII string containing description
+ * 注册应用
+ * 嵌入 DLT 的通用应用程序接口
+ * @param APPID 应用程序 ID，最多四个字符
+ * @param DESCRIPTION 包含说明的 ASCII 字符串
  */
 /* #define DLT_REGISTER_APP(APPID,DESCRIPTION) */
 /* UNCHANGED */
 
 /**
- * Register context including application (with default log level and default trace status)
- * Common API with DLT Embedded
- * @param CONTEXT object containing information about one special logging context
- * @param CONTEXTID context id with maximal four characters
- * @param APPID context id with maximal four characters
+ * 注册上下文，包括应用程序（默认日志级别和默认跟踪状态）
+ * 嵌入 DLT 的通用应用程序接口
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
+ * @param CONTEXTID 最多四个字符的上下文 ID
+ * @param APPID 最多四个字符的应用 ID
  * @param DESCRIPTION ASCII string containing description
  */
 #define DLT_REGISTER_CONTEXT_APP(CONTEXT, CONTEXTID, APPID, DESCRIPTION) \
     DLT_REGISTER_CONTEXT(CONTEXT, CONTEXTID, DESCRIPTION)
 
 /**
- * Send log message with variable list of messages (intended for verbose mode)
- * Common API with DLT Embedded
- * @param CONTEXT object containing information about one special logging context
- * @param LOGLEVEL the log level of the log message
- * @param ARGS variable list of arguments
+ * 发送包含可变信息列表的日志信息（用于冗余模式）
+ * 嵌入 DLT 的通用应用程序接口
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
+ * @param LOGLEVEL 日志信息的日志级别
+ * @param ARGS 变量参数表
  */
 /*****************************************/
 #define DLT_LOG0(CONTEXT, LOGLEVEL) \
@@ -291,12 +291,12 @@
             ARGS16)
 
 /**
- * Send log message with variable list of messages (intended for non-verbose mode)
- * Common API with DLT Embedded
- * @param CONTEXT object containing information about one special logging context
- * @param LOGLEVEL the log level of the log message
- * @param MSGID the message id of log message
- * @param ARGS variable list of arguments:
+ * 发送包含可变信息列表的日志信息（用于非冗余模式）
+ * 嵌入 DLT 的通用应用程序接口
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
+ * @param LOGLEVEL 日志信息的日志级别
+ * @param MSGID 日志报文的报文 ID
+ * @param ARGS 变量参数表:
  * calls to DLT_STRING(), DLT_BOOL(), DLT_FLOAT32(), DLT_FLOAT64(),
  * DLT_INT(), DLT_UINT(), DLT_RAW()
  */
@@ -526,24 +526,24 @@
                ARGS16)
 
 /**
- * Unregister context.
- * Common API with DLT Embedded
- * @param CONTEXT object containing information about one special logging context
+ * 取消注册上下文.
+ * 嵌入 DLT 的通用应用程序接口
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
  */
 /* #define DLT_UNREGISTER_CONTEXT(CONTEXT) */
 /* UNCHANGED */
 
 /**
- * Unregister application.
- * Common API with DLT Embedded
+ * 取消注册应用程序.
+ * 嵌入 DLT 的通用应用程序接口
  */
 /* #define DLT_UNREGISTER_APP() */
 /* UNCHANGED */
 
 /**
- * Add string parameter to the log messsage.
- * Common API with DLT Embedded
- * In the future in none verbose mode the string will not be sent via DLT message.
+ * 在日志信息中添加字符串参数.
+ * 嵌入 DLT 的通用应用程序接口
+ * 今后，在非冗余模式下，字符串将不会通过 DLT 信息发送。.
  * @param TEXT ASCII string
  */
 /* #define DLT_CSTRING(TEXT) */

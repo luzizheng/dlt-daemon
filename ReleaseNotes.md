@@ -801,7 +801,7 @@ Back to [README.md](../README.md)
    * Reduce Timeout between filetransfer packets.
    * Close socket when send fails.
    * Replace threads by timing fds for ecu version, timing packets and watchdog.
-   * Added conntection info and unregister context control messages.
+   * Added conntection info and 取消注册上下文 control messages.
    * Configurable Timeout on send.
    * Added further checks to dlt_buffer.
    * atexit handler fix.
@@ -1066,7 +1066,7 @@ Back to [README.md](../README.md)
  * DLT daemon/DLT library: Fixed bug in Filter Delete
  * DLT daemon: Fixed bug in dlt daemon which leads to a crash, when starting/stoping application, then sending
      new log level to context of this (now not running) application.
- * DLT daemon: Fixed bug in unregister application
+ * DLT daemon: Fixed bug in 取消注册应用程序
  * DLT daemon: Fixed bug in reattach to daemon
  * DLT library: Fixed bug in send function
  * DLT viewer: Fixed bug in set default log level

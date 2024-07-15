@@ -3446,7 +3446,7 @@ int dlt_daemon_process_user_message_unregister_context(DltDaemon *daemon,
         }
     }
 
-    /* Create automatic unregister context response for unregistered context */
+    /* Create automatic 取消注册上下文 response for unregistered context */
     if (daemon_local->flags.rflag)
         dlt_daemon_control_message_unregister_context(DLT_DAEMON_SEND_TO_ALL,
                                                       daemon,
@@ -3763,7 +3763,7 @@ int dlt_daemon_process_user_message_marker(DltDaemon *daemon,
         /* Not enough bytes received */
         return -1;
 
-    /* Create automatic unregister context response for unregistered context */
+    /* Create automatic 取消注册上下文 response for unregistered context */
     dlt_daemon_control_message_marker(DLT_DAEMON_SEND_TO_ALL, daemon, daemon_local, verbose);
 
     return 0;

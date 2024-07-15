@@ -87,7 +87,7 @@ typedef struct
  * This function must be called before using further shm functions.
  * @param buf pointer to shm structure
  * @param name the name of the shm, must be the same for server and client
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 extern DltReturnValue dlt_shm_init_client(DltShm *buf, const char *name);
 
@@ -97,7 +97,7 @@ extern DltReturnValue dlt_shm_init_client(DltShm *buf, const char *name);
  * @param buf pointer to shm structure
  * @param name the name of the shm, must be the same for server and client
  * @param size the requested size of the shm
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 extern DltReturnValue dlt_shm_init_server(DltShm *buf, const char *name, int size);
 
@@ -110,7 +110,7 @@ extern DltReturnValue dlt_shm_init_server(DltShm *buf, const char *name, int siz
  * @param size2 size in bytes of second data block to be written, 0 if not used
  * @param data3 pointer to third data block to be written, null if not used
  * @param size3 size in bytes of third data block to be written, 0 if not used
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 extern int dlt_shm_push(DltShm *buf,
                         const unsigned char *data1,
@@ -127,7 +127,7 @@ extern int dlt_shm_push(DltShm *buf,
  * @param buf pointer to shm structure
  * @param data pointer to buffer where data is to be written
  * @param size maximum size to be written into buffer
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 extern int dlt_shm_pull(DltShm *buf, unsigned char *data, int size);
 
@@ -138,7 +138,7 @@ extern int dlt_shm_pull(DltShm *buf, unsigned char *data, int size);
  * @param buf pointer to shm structure
  * @param data pointer to buffer where data is to be written
  * @param size maximum size to be written into buffer
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 extern int dlt_shm_copy(DltShm *buf, unsigned char *data, int size);
 
@@ -147,7 +147,7 @@ extern int dlt_shm_copy(DltShm *buf, unsigned char *data, int size);
  * This function should be called from server.
  * This function should be called after each succesful copy.
  * @param buf pointer to shm structure
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 extern int dlt_shm_remove(DltShm *buf);
 
@@ -166,7 +166,7 @@ extern void dlt_shm_status(DltShm *buf);
 /**
  * Deinitialise the shared memory on the client side.
  * @param buf pointer to shm structure
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 extern DltReturnValue dlt_shm_free_client(DltShm *buf);
 
@@ -209,7 +209,7 @@ extern int dlt_shm_recover(DltShm *buf);
  * Deinitialise the shared memory on the server side.
  * @param buf pointer to shm structure
  * @param name name of the shared memory
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 extern DltReturnValue dlt_shm_free_server(DltShm *buf, const char *name);
 

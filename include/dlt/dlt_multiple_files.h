@@ -67,7 +67,7 @@ typedef struct
  * @param append Indicates whether the current log files is used or a new file should be be created
  * @param filename_base Base name.
  * @param filename_ext File extension.
- * @return negative value if there was an error.
+ * @return 如果出现错误则为负值.
  */
 extern DltReturnValue multiple_files_buffer_init(MultipleFilesRingBuffer *files_buffer,
                                                  const char *directory,
@@ -83,7 +83,7 @@ extern DltReturnValue multiple_files_buffer_init(MultipleFilesRingBuffer *files_
  * This function call closes currently used log file.
  * This function must be called after usage of multiple files.
  * @param files_buffer pointer to MultipleFilesRingBuffer struct.
- * @return negative value if there was an error.
+ * @return 如果出现错误则为负值.
 */
 extern DltReturnValue multiple_files_buffer_free(const MultipleFilesRingBuffer *files_buffer);
 
@@ -95,7 +95,7 @@ extern DltReturnValue multiple_files_buffer_free(const MultipleFilesRingBuffer *
  * @param files_buffer pointer to MultipleFilesRingBuffer struct.
  * @param data pointer to first data block to be written, null if not used.
  * @param size size in bytes of first data block to be written, 0 if not used.
- * @return negative value if there was an error.
+ * @return 如果出现错误则为负值.
  */
 extern DltReturnValue multiple_files_buffer_write(MultipleFilesRingBuffer *files_buffer,
                                                   const unsigned char *data,

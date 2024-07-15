@@ -101,7 +101,7 @@ int dlt_control_deinit(void);
  * @param filter pointer to structure of organising DLT filter
  * @param filename filename to load filters from
  * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_json_filter_load(DltFilter *filter, const char *filename, int verbose);
 /**
@@ -109,7 +109,7 @@ DltReturnValue dlt_json_filter_load(DltFilter *filter, const char *filename, int
  * @param filter pointer to structure of organising DLT filter
  * @param filename filename to safe filters into
  * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_json_filter_save(DltFilter *filter, const char *filename, int verbose);
 #endif

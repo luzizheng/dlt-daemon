@@ -205,7 +205,7 @@ int main(int argc, char *argv[])
     /* wait 3 seconds before terminating application */
     /*sleep(3); */
 
-    /* Unregister CONTEXTS... */
+    /* 取消注册上下文S... */
     dlt_unregister_context(&context_info);
 
     /* Unregister APP */

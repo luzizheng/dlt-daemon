@@ -87,7 +87,7 @@ typedef struct
  */
 typedef struct
 {
-    char apid[DLT_ID_SIZE];          /**< application id */
+    char apid[DLT_ID_SIZE];          /**< application id (应用ID) */
     pid_t pid;                       /**< process id of user application */
     uint32_t description_length;     /**< length of description */
 } DLT_PACKED DltUserControlMsgRegisterApplication;
@@ -97,7 +97,7 @@ typedef struct
  */
 typedef struct
 {
-    char apid[DLT_ID_SIZE];         /**< application id */
+    char apid[DLT_ID_SIZE];         /**< application id (应用ID) */
     pid_t pid;                      /**< process id of user application */
 } DLT_PACKED DltUserControlMsgUnregisterApplication;
 
@@ -106,8 +106,8 @@ typedef struct
  */
 typedef struct
 {
-    char apid[DLT_ID_SIZE];          /**< application id */
-    char ctid[DLT_ID_SIZE];          /**< context id */
+    char apid[DLT_ID_SIZE];          /**< application id (应用ID) */
+    char ctid[DLT_ID_SIZE];          /**< context id (上下文ID) */
     int32_t log_level_pos;           /**< offset in management structure on user-application side */
     int8_t log_level;                /**< log level */
     int8_t trace_status;             /**< trace status */
@@ -120,8 +120,8 @@ typedef struct
  */
 typedef struct
 {
-    char apid[DLT_ID_SIZE];         /**< application id */
-    char ctid[DLT_ID_SIZE];         /**< context id */
+    char apid[DLT_ID_SIZE];         /**< application id (应用ID) */
+    char ctid[DLT_ID_SIZE];         /**< context id (上下文ID) */
     pid_t pid;                      /**< process id of user application */
 } DLT_PACKED DltUserControlMsgUnregisterContext;
 
@@ -151,7 +151,7 @@ typedef struct
  */
 typedef struct
 {
-    char apid[DLT_ID_SIZE];        /**< application id */
+    char apid[DLT_ID_SIZE];        /**< application id (应用ID) */
     uint8_t log_level;             /**< log level */
     uint8_t trace_status;          /**< trace status */
 } DLT_PACKED DltUserControlMsgAppLogLevelTraceStatus;
@@ -196,7 +196,7 @@ DltReturnValue dlt_user_set_userheader(DltUserHeader *userheader, uint32_t mtype
 /**
  * Check if user header contains its marker
  * @param userheader pointer to the userheader
- * @return 0 no, 1 yes, negative value if there was an error
+ * @return 0 no, 1 yes, 如果出现错误则为负值
  */
 int dlt_user_check_userheader(DltUserHeader *userheader);
 

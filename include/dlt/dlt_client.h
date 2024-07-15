@@ -68,7 +68,7 @@
 #   define DLT_CLIENT_H
 
 /**
- * \defgroup clientapi DLT Client API
+ * \defgroup clientapi DLT 客户端应用程序接口
  * \addtogroup clientapi
  \{
  */
@@ -88,18 +88,18 @@ typedef enum
 
 typedef struct
 {
-    DltReceiver receiver;  /**< receiver pointer to dlt receiver structure */
-    int sock;              /**< sock Connection handle/socket */
-    char *servIP;          /**< servIP IP adress/Hostname of interface */
-    char *hostip;          /**< hostip IP address of UDP host receiver interface */
-    int port;              /**< Port for TCP connections (optional) */
-    char *serialDevice;    /**< serialDevice Devicename of serial device */
-    char *socketPath;      /**< socketPath Unix socket path */
+    DltReceiver receiver;  /**< 指向 dlt 接收器结构的接收器指针 */
+    int sock;              /**< 套接字连接句柄 */
+    char *servIP;          /**< servIP 网络接口的IP地址/主机名 */
+    char *hostip;          /**< hostip UDP 主机接收器网络接口的 IP 地址 */
+    int port;              /**< 用于 TCP 连接的端口（可选） */
+    char *serialDevice;    /**< serialDevice 串行设备的设备名 */
+    char *socketPath;      /**< socketPath Unix 套接字路径 */
     char ecuid[4];         /**< ECUiD */
-    speed_t baudrate;      /**< baudrate Baudrate of serial interface, as speed_t */
-    DltClientMode mode;    /**< mode DltClientMode */
-    int send_serial_header;    /**< (Boolean) Send DLT messages with serial header */
-    int resync_serial_header;  /**< (Boolean) Resync to serial header on all connection */
+    speed_t baudrate;      /**< 波特率 串行接口的波特率，以 speed_t 表示 */
+    DltClientMode mode;    /**< DltClientMode */
+    int send_serial_header;    /**< (Boolean）发送带串行报文头的 DLT 报文 */
+    int resync_serial_header;  /**< (Boolean) 在所有连接上重新同步到串行标头 */
 } DltClient;
 
 #   ifdef __cplusplus
@@ -110,71 +110,71 @@ void dlt_client_register_message_callback(int (*registerd_callback)(DltMessage *
 void dlt_client_register_fetch_next_message_callback(bool (*registerd_callback)(void *data));
 
 /**
- * Initialising dlt client structure with a specific port
- * @param client pointer to dlt client structure
- * @param port The port for the tcp connection
- * @param verbose if set to true verbose information is printed out.
- * @return negative value if there was an error
+ * 使用特定端口初始化 dlt 客户端结构
+ * @param client 指向 dlt 客户端结构的指针
+ * @param port tcp 连接的端口
+ * @param verbose 如果设置为 "true"，则会打印出详细的信息。
+ * @return 如果出现错误则为负值
  */
 int dlt_client_init_port(DltClient *client, int port, int verbose);
 
 /**
- * Initialising dlt client structure
- * @param client pointer to dlt client structure
- * @param verbose if set to true verbose information is printed out.
- * @return Value from DltReturnValue enum
+ * 初始化 dlt 客户端结构
+ * @param client 指向 dlt 客户端结构的指针
+ * @param verbose 如果设置为 "true"，则会打印出详细的信息。
+ * @return 来自 DltReturnValue 枚举的值
  */
 DltReturnValue dlt_client_init(DltClient *client, int verbose);
 /**
- * Connect to dlt daemon using the information from the dlt client structure
- * @param client pointer to dlt client structure
- * @param verbose if set to true verbose information is printed out.
- * @return Value from DltReturnValue enum
+ * 使用 dlt 客户端结构中的信息连接 dlt 守护进程
+ * @param client 指向 dlt 客户端结构的指针
+ * @param verbose 如果设置为 "true"，则会打印出详细的信息。
+ * @return 来自 DltReturnValue 枚举的值
  */
 DltReturnValue dlt_client_connect(DltClient *client, int verbose);
 /**
- * Cleanup dlt client structure
- * @param client pointer to dlt client structure
- * @param verbose if set to true verbose information is printed out.
- * @return Value from DltReturnValue enum
+ * 清理 dlt 客户端结构
+ * @param client 指向 dlt 客户端结构的指针
+ * @param verbose 如果设置为 "true"，则会打印出详细的信息。
+ * @return 来自 DltReturnValue 枚举的值
  */
 DltReturnValue dlt_client_cleanup(DltClient *client, int verbose);
 /**
- * Main Loop of dlt client application
- * @param client pointer to dlt client structure
- * @param data pointer to data to be provided to the main loop
- * @param verbose if set to true verbose information is printed out.
- * @return Value from DltReturnValue enum
+ * dlt 客户端应用程序的主要循环
+ * @param client 指向 dlt 客户端结构的指针
+ * @param data 指向要提供给主循环的数据的指针
+ * @param verbose 如果设置为 "true"，则会打印出详细的信息。
+ * @return 来自 DltReturnValue 枚举的值
  */
 DltReturnValue dlt_client_main_loop(DltClient *client, void *data, int verbose);
 
 /**
- * Send a message to the daemon through the socket.
- * @param client pointer to dlt client structure.
- * @param msg The message to be send in DLT format.
- * @return Value from DltReturnValue enum.
+ * 通过套接字向守护进程发送信息。
+ * @param client 指向 dlt 客户端结构的指针。
+ * @param msg 以 DLT 格式发送的信息。
+ * @return 来自 DltReturnValue 枚举的值.
  */
 DltReturnValue dlt_client_send_message_to_socket(DltClient *client, DltMessage *msg);
 
 /**
- * Send ancontrol message to the dlt daemon
- * @param client pointer to dlt client structure
- * @param apid application id
+ * 向 dlt 守护进程发送控制信息
+ * @param client 指向 dlt 客户端结构的指针
+ * @param apid 应用ID
  * @param ctid context id
- * @param payload Buffer filled with control message data
- * @param size Size of control message data
- * @return Value from DltReturnValue enum
+ * @param payload 装满控制信息数据的缓冲区
+ * @param size 控制信息数据的大小
+ * @return 来自 DltReturnValue 枚举的值
  */
 DltReturnValue dlt_client_send_ctrl_msg(DltClient *client, char *apid, char *ctid, uint8_t *payload, uint32_t size);
 /**
- * Send an injection message to the dlt daemon
- * @param client pointer to dlt client structure
- * @param apid application id
- * @param ctid context id
+ * 向 dlt 守护进程发送注入信息
+ * @param client 指向 dlt 客户端结构的指针
+ * @param apid 应用ID
+ * @param ctid 上下文ID
  * @param serviceID service id
- * @param buffer Buffer filled with injection message data
- * @param size Size of injection data within buffer
- * @return Value from DltReturnValue enum
+ * @param buffer 注入信息数据的缓冲区
+ * @param size 缓冲区内注入数据的大小
+ * @return 来自 DltReturnValue 枚举的值
  */
 DltReturnValue dlt_client_send_inject_msg(DltClient *client,
                                           char *apid,
@@ -183,160 +183,160 @@ DltReturnValue dlt_client_send_inject_msg(DltClient *client,
                                           uint8_t *buffer,
                                           uint32_t size);
 /**
- * Send an set  log level message to the dlt daemon
- * @param client pointer to dlt client structure
- * @param apid application id
+ * 向 dlt 守护进程发送设置日志级别信息
+ * @param client 指向 dlt 客户端结构的指针
+ * @param apid 应用ID
  * @param ctid context id
- * @param logLevel Log Level
- * @return Value from DltReturnValue enum
+ * @param logLevel Log 等级
+ * @return 来自 DltReturnValue 枚举的值
  */
 DltReturnValue dlt_client_send_log_level(DltClient *client, char *apid, char *ctid, uint8_t logLevel);
 /**
- * Send an request to get log info message to the dlt daemon
- * @param client pointer to dlt client structure
- * @return negative value if there was an error
+ * 向 dlt 守护进程发送获取日志信息的请求
+ * @param client 指向 dlt 客户端结构的指针
+ * @return 如果出现错误则为负值
  */
 int dlt_client_get_log_info(DltClient *client);
 /**
- * Send an request to get default log level to the dlt daemon
- * @param client pointer to dlt client structure
- * @return negative value if there was an error
+ * 向 dlt 守护进程发送获取默认日志级别的请求
+ * @param client 指向 dlt 客户端结构的指针
+ * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_client_get_default_log_level(DltClient *client);
 /**
- * Send an request to get software version to the dlt daemon
- * @param client pointer to dlt client structure
- * @return negative value if there was an error
+ * 向 dlt 守护进程发送获取软件版本的请求
+ * @param client 指向 dlt 客户端结构的指针
+ * @return 如果出现错误则为负值
  */
 int dlt_client_get_software_version(DltClient *client);
 /**
- * Initialise get log info structure
+ * 初始化获取日志信息结构
  * @return void
  */
 void dlt_getloginfo_init(void);
 /**
- * To free the memory allocated for app description in get log info
+ * 释放为获取日志信息中的应用程序描述分配的内存
  * @return void
  */
 void dlt_getloginfo_free(void);
 /**
- * Send a set trace status message to the dlt daemon
- * @param client pointer to dlt client structure
- * @param apid application id
+ * 向 dlt 守护进程发送设置跟踪状态信息
+ * @param client 指向 dlt 客户端结构的指针
+ * @param apid 应用ID
  * @param ctid context id
- * @param traceStatus Default Trace Status
- * @return Value from DltReturnValue enum
+ * @param traceStatus 默认 Trace 状态
+ * @return 来自 DltReturnValue 枚举的值
  */
 DltReturnValue dlt_client_send_trace_status(DltClient *client, char *apid, char *ctid, uint8_t traceStatus);
 /**
- * Send the default log level to the dlt daemon
- * @param client pointer to dlt client structure
- * @param defaultLogLevel Default Log Level
- * @return Value from DltReturnValue enum
+ * 向 dlt 守护进程发送默认日志级别
+ * @param client 指向 dlt 客户端结构的指针
+ * @param defaultLogLevel 默认Log等级
+ * @return 来自 DltReturnValue 枚举的值
  */
 DltReturnValue dlt_client_send_default_log_level(DltClient *client, uint8_t defaultLogLevel);
 /**
- * Send the log level to all contexts registered with dlt daemon
- * @param client pointer to dlt client structure
- * @param LogLevel Log Level to be set
- * @return Value from DltReturnValue enum
+ * 向 dlt 守护进程注册的所有上下文发送日志级别
+ * @param client 指向 dlt 客户端结构的指针
+ * @param logLevel 要设置的 Log 等级
+ * @return 来自 DltReturnValue 枚举的值
  */
 DltReturnValue dlt_client_send_all_log_level(DltClient *client, uint8_t LogLevel);
 /**
- * Send the default trace status to the dlt daemon
- * @param client pointer to dlt client structure
- * @param defaultTraceStatus Default Trace Status
- * @return Value from DltReturnValue enum
+ * 向 dlt 守护进程发送默认跟踪状态
+ * @param client 指向 dlt 客户端结构的指针
+ * @param defaultTraceStatus 默认跟踪状态
+ * @return 来自 DltReturnValue 枚举的值
  */
 DltReturnValue dlt_client_send_default_trace_status(DltClient *client, uint8_t defaultTraceStatus);
 /**
- * Send the trace status to all contexts registered with dlt daemon
- * @param client pointer to dlt client structure
+ * 向 dlt 守护进程注册的所有上下文发送跟踪状态
+ * @param client 指向 dlt 客户端结构的指针
  * @param traceStatus trace status to be set
- * @return Value from DltReturnValue enum
+ * @return 来自 DltReturnValue 枚举的值
  */
 DltReturnValue dlt_client_send_all_trace_status(DltClient *client, uint8_t traceStatus);
 /**
- * Send the timing pakets status to the dlt daemon
- * @param client pointer to dlt client structure
- * @param timingPakets Timing pakets enabled
- * @return Value from DltReturnValue enum
+ * 向 dlt 守护进程发送定时包状态
+ * @param client 指向 dlt 客户端结构的指针
+ * @param timingPakets 启用定时包
+ * @return 来自 DltReturnValue 枚举的值
  */
 DltReturnValue dlt_client_send_timing_pakets(DltClient *client, uint8_t timingPakets);
 /**
- * Send the store config command to the dlt daemon
- * @param client pointer to dlt client structure
- * @return Value from DltReturnValue enum
+ * 向 dlt 守护进程发送存储配置命令
+ * @param client 指向 dlt 客户端结构的指针
+ * @return 来自 DltReturnValue 枚举的值
  */
 DltReturnValue dlt_client_send_store_config(DltClient *client);
 /**
- * Send the reset to factory default command to the dlt daemon
- * @param client pointer to dlt client structure
- * @return Value from DltReturnValue enum
+ * 向 dlt 守护进程发送重置为出厂默认设置的命令
+ * @param client 指向 dlt 客户端结构的指针
+ * @return 来自 DltReturnValue 枚举的值
  */
 DltReturnValue dlt_client_send_reset_to_factory_default(DltClient *client);
 
 /**
- * Set baudrate within dlt client structure
- * @param client pointer to dlt client structure
+ * 在 dlt 客户端结构内设置波特率
+ * @param client 指向 dlt 客户端结构的指针
  * @param baudrate Baudrate
- * @return Value from DltReturnValue enum
+ * @return 来自 DltReturnValue 枚举的值
  */
 DltReturnValue dlt_client_setbaudrate(DltClient *client, int baudrate);
 
 /**
- * Set mode within dlt client structure
- * @param client pointer to dlt client structure
+ * 在 dlt 客户端结构内设置模式
+ * @param client 指向 dlt 客户端结构的指针
  * @param mode DltClientMode
- * @return Value from DltReturnValue enum
+ * @return 来自 DltReturnValue 枚举的值
  */
 DltReturnValue dlt_client_set_mode(DltClient *client, DltClientMode mode);
 
 /**
- * Set server ip
- * @param client pointer to dlt client structure
- * @param ipaddr pointer to command line argument
- * @return negative value if there was an error
+ * 设置服务器IP
+ * @param client 指向 dlt 客户端结构的指针
+ * @param ipaddr 指向命令行参数的指针
+ * @return 如果出现错误则为负值
  */
 int dlt_client_set_server_ip(DltClient *client, char *ipaddr);
 
 /**
- * Set server UDP host receiver interface address
- * @param client pointer to dlt client structure
- * @param hostip pointer to multicast group address
- * @return negative value if there was an error
+ * 设置服务器 UDP 主机接收器接口地址
+ * @param client 指向 dlt 客户端结构的指针
+ * @param hostip 指向多播组地址的指针
+ * @return 如果出现错误则为负值
  */
 int dlt_client_set_host_if_address(DltClient *client, char *hostip);
 
 /**
- * Set serial device
- * @param client pointer to dlt client structure
- * @param serial_device pointer to command line argument
- * @return negative value if there was an error
+ * 设置串行设备
+ * @param client 指向 dlt 客户端结构的指针
+ * @param serial_device 指向命令行参数的指针
+ * @return 如果出现错误则为负值
  */
 int dlt_client_set_serial_device(DltClient *client, char *serial_device);
 
 /**
- * Set socket path
- * @param client pointer to dlt client structure
- * @param socket_path pointer to socket path string
- * @return negative value if there was an error
+ * 设置套接字路径
+ * @param client 指向 dlt 客户端结构的指针
+ * @param socket_path 指向套接字路径字符串的指针
+ * @return 如果出现错误则为负值
  */
 int dlt_client_set_socket_path(DltClient *client, char *socket_path);
 
 /**
- * Parse GET_LOG_INFO response text
- * @param resp      GET_LOG_INFO response
- * @param resp_text response text represented by ASCII
- * @return Value from DltReturnValue enum
+ * 解析 GET_LOG_INFO 应答的文本 
+ * @param resp      GET_LOG_INFO 应答
+ * @param resp_text 用 ASCII 表示的应答文本
+ * @return 来自 DltReturnValue 枚举的值
  */
 DltReturnValue dlt_client_parse_get_log_info_resp_text(DltServiceGetLogInfoResponse *resp,
                                                        char *resp_text);
 
 /**
- * Free memory allocated for get log info message
- * @param resp response
- * @return 0 on success, -1 otherwise
+ * 释放为获取日志信息分配的内存
+ * @param resp 应答
+ * @return 成功时为 0，否则为 -1
  */
 int dlt_client_cleanup_get_log_info(DltServiceGetLogInfoResponse *resp);
 #   ifdef __cplusplus

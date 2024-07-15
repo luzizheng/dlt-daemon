@@ -123,7 +123,7 @@ extern "C" {
  */
 typedef struct
 {
-    char contextID[DLT_ID_SIZE];                  /**< context id */
+    char contextID[DLT_ID_SIZE];                  /**< context id (上下文ID) */
     int32_t log_level_pos;                        /**< offset in user-application context field */
     int8_t *log_level_ptr;                        /**< pointer to the log level */
     int8_t *trace_status_ptr;                     /**< pointer to the trace status */
@@ -157,7 +157,7 @@ typedef struct
 
 typedef struct
 {
-    char contextID[DLT_ID_SIZE];      /**< Context ID */
+    char contextID[DLT_ID_SIZE];      /**< context id (上下文ID) */
     int8_t log_level;                 /**< Log level */
     int8_t trace_status;              /**< Trace status */
     void (*log_level_changed_callback)(char context_id[DLT_ID_SIZE], uint8_t log_level, uint8_t trace_status);
@@ -168,7 +168,7 @@ typedef struct
  */
 typedef struct
 {
-    char contextID[DLT_ID_SIZE];      /**< Context ID */
+    char contextID[DLT_ID_SIZE];      /**< context id (上下文ID) */
     int8_t log_level;                 /**< Log level */
     int8_t *log_level_ptr;             /**< Ptr to the log level */
     int8_t trace_status;              /**< Trace status */
@@ -210,7 +210,7 @@ typedef struct
 typedef struct
 {
     char ecuID[DLT_ID_SIZE];                   /**< ECU ID */
-    char appID[DLT_ID_SIZE];                   /**< Application ID */
+    char appID[DLT_ID_SIZE];                   /**< application id (应用ID) */
     int dlt_log_handle;                        /**< Handle to fifo of dlt daemon */
     int dlt_user_handle;                       /**< Handle to own fifo */
 #ifdef DLT_NETWORK_TRACE_ENABLE
@@ -282,7 +282,7 @@ typedef int (*dlt_injection_callback)(uint32_t, void *, uint32_t);
  * This function has to be called first, when an application wants to send a new log messages.
  * Following functions like dlt_user_log_write_string and dlt_user_log_write_finish must only be called,
  * when return value is bigger than zero.
- * @param handle pointer to an object containing information about one special logging context
+ * @param handle pointer to an 对象，其中包含一个特殊日志上下文的信息
  * @param log pointer to an object containing information about logging context data
  * @param loglevel this is the current log level of the log message to be sent
  * @return Value from DltReturnValue enum, DLT_RETURN_TRUE if log level is matching
@@ -294,7 +294,7 @@ DltReturnValue dlt_user_log_write_start(DltContext *handle, DltContextData *log,
  * This function has to be called first, when an application wants to send a new log messages.
  * Following functions like dlt_user_log_write_string and dlt_user_log_write_finish must only be called,
  * when return value is bigger than zero.
- * @param handle pointer to an object containing information about one special logging context
+ * @param handle pointer to an 对象，其中包含一个特殊日志上下文的信息
  * @param log pointer to an object containing information about logging context data
  * @param loglevel this is the current log level of the log message to be sent
  * @param messageid message id of message
@@ -314,7 +314,7 @@ DltReturnValue dlt_user_log_write_start_id(DltContext *handle,
  * when an application is ready to send a new log message with given buffer. This function only
  * works with combination of dlt_user_log_write_finish_w_given_buffer and the function must only be
  * called, when return value is bigger than zero. The function only supports verbose mode as of now.
- * @param handle pointer to an object containing information about one special logging context
+ * @param handle pointer to an 对象，其中包含一个特殊日志上下文的信息
  * @param log pointer to an object containing information about logging context data
  * @param loglevel this is the current log level of the log message to be sent
  * @param buffer data with log message
@@ -790,7 +790,7 @@ DltReturnValue dlt_user_log_write_raw_formatted_attr(DltContextData *log, const 
 
 /**
  * Trace network message
- * @param handle pointer to an object containing information about one special logging context
+ * @param handle pointer to an 对象，其中包含一个特殊日志上下文的信息
  * @param nw_trace_type type of network trace (DLT_NW_TRACE_IPC, DLT_NW_TRACE_CAN, DLT_NW_TRACE_FLEXRAY, or DLT_NW_TRACE_MOST)
  * @param header_len length of network message header
  * @param header pointer to network message header
@@ -918,7 +918,7 @@ DltReturnValue dlt_get_appid(char *appid);
 /**
  * Register a context in the daemon.
  * This function has to be called before first usage of the context.
- * @param handle pointer to an object containing information about one special logging context
+ * @param handle pointer to an 对象，其中包含一个特殊日志上下文的信息
  * @param contextid four byte long character array with the context id
  * @param description long name of the context
  * @return Value from DltReturnValue enum
@@ -928,7 +928,7 @@ DltReturnValue dlt_register_context(DltContext *handle, const char *contextid, c
 /**
  * Register a context in the daemon with pre-defined log level and pre-defined trace status.
  * This function has to be called before first usage of the context.
- * @param handle pointer to an object containing information about one special logging context
+ * @param handle pointer to an 对象，其中包含一个特殊日志上下文的信息
  * @param contextid four byte long character array with the context id
  * @param description long name of the context
  * @param loglevel This is the log level to be pre-set for this context
@@ -946,7 +946,7 @@ DltReturnValue dlt_register_context_ll_ts(DltContext *handle,
 /**
  * Register a context in the daemon with log level changed callback fn.
  * This function is introduced to avoid missing of LL change callback during registration
- * @param handle pointer to an object containing information about one special logging context
+ * @param handle pointer to an 对象，其中包含一个特殊日志上下文的信息
  * @param contextid four byte long character array with the context id
  * @param description long name of the context
  * @param *dlt_log_level_changed_callback This is the fn which will be called when log level is changed
@@ -962,7 +962,7 @@ DltReturnValue dlt_register_context_llccb(DltContext *handle,
 /**
  * Unregister a context in the DLT daemon.
  * This function has to be called when finishing using a context.
- * @param handle pointer to an object containing information about one special logging context
+ * @param handle pointer to an 对象，其中包含一个特殊日志上下文的信息
  * @return Value from DltReturnValue enum
  */
 DltReturnValue dlt_unregister_context(DltContext *handle);
@@ -995,7 +995,7 @@ int dlt_get_log_state();
 
 /**
  * Register callback function called when injection message was received
- * @param handle pointer to an object containing information about one special logging context
+ * @param handle pointer to an 对象，其中包含一个特殊日志上下文的信息
  * @param service_id the service id to be waited for
  * @param (*dlt_injection_callback) function pointer to callback function
  * @return Value from DltReturnValue enum
@@ -1007,7 +1007,7 @@ DltReturnValue dlt_register_injection_callback(DltContext *handle, uint32_t serv
 
 /**
  * Register callback function with private data called when injection message was received
- * @param handle pointer to an object containing information about one special logging context
+ * @param handle pointer to an 对象，其中包含一个特殊日志上下文的信息
  * @param service_id the service id to be waited for
  * @param (*dlt_injection_callback) function pointer to callback function
  * @param priv private data
@@ -1021,7 +1021,7 @@ DltReturnValue dlt_register_injection_callback_with_id(DltContext *handle, uint3
 
 /**
  * Register callback function called when log level of context was changed
- * @param handle pointer to an object containing information about one special logging context
+ * @param handle pointer to an 对象，其中包含一个特殊日志上下文的信息
  * @param (*dlt_log_level_changed_callback) function pointer to callback function
  * @return Value from DltReturnValue enum
  */
@@ -1150,7 +1150,7 @@ DltReturnValue dlt_disable_local_print(void);
 
 /**
  * Write a null terminated ASCII string into a DLT log message.
- * @param handle pointer to an object containing information about one special logging context
+ * @param handle pointer to an 对象，其中包含一个特殊日志上下文的信息
  * @param loglevel this is the current log level of the log message to be sent
  * @param text pointer to the ASCII string written into log message containing null termination.
  * @return Value from DltReturnValue enum
@@ -1159,7 +1159,7 @@ DltReturnValue dlt_log_string(DltContext *handle, DltLogLevelType loglevel, cons
 
 /**
  * Write a null terminated ASCII string and an integer value into a DLT log message.
- * @param handle pointer to an object containing information about one special logging context
+ * @param handle pointer to an 对象，其中包含一个特殊日志上下文的信息
  * @param loglevel this is the current log level of the log message to be sent
  * @param text pointer to the ASCII string written into log message containing null termination.
  * @param data integer value written into the log message
@@ -1169,7 +1169,7 @@ DltReturnValue dlt_log_string_int(DltContext *handle, DltLogLevelType loglevel, 
 
 /**
  * Write a null terminated ASCII string and an unsigned integer value into a DLT log message.
- * @param handle pointer to an object containing information about one special logging context
+ * @param handle pointer to an 对象，其中包含一个特殊日志上下文的信息
  * @param loglevel this is the current log level of the log message to be sent
  * @param text pointer to the ASCII string written into log message containing null termination.
  * @param data unsigned integer value written into the log message
@@ -1179,7 +1179,7 @@ DltReturnValue dlt_log_string_uint(DltContext *handle, DltLogLevelType loglevel,
 
 /**
  * Write an integer value into a DLT log message.
- * @param handle pointer to an object containing information about one special logging context
+ * @param handle pointer to an 对象，其中包含一个特殊日志上下文的信息
  * @param loglevel this is the current log level of the log message to be sent
  * @param data integer value written into the log message
  * @return Value from DltReturnValue enum
@@ -1188,7 +1188,7 @@ DltReturnValue dlt_log_int(DltContext *handle, DltLogLevelType loglevel, int dat
 
 /**
  * Write an unsigned integer value into a DLT log message.
- * @param handle pointer to an object containing information about one special logging context
+ * @param handle pointer to an 对象，其中包含一个特殊日志上下文的信息
  * @param loglevel this is the current log level of the log message to be sent
  * @param data unsigned integer value written into the log message
  * @return Value from DltReturnValue enum
@@ -1197,7 +1197,7 @@ DltReturnValue dlt_log_uint(DltContext *handle, DltLogLevelType loglevel, unsign
 
 /**
  * Write an unsigned integer value into a DLT log message.
- * @param handle pointer to an object containing information about one special logging context
+ * @param handle pointer to an 对象，其中包含一个特殊日志上下文的信息
  * @param loglevel this is the current log level of the log message to be sent
  * @param data pointer to the parameter written into log message.
  * @param length length in bytes of the parameter written into log message.
@@ -1239,7 +1239,7 @@ DltReturnValue dlt_user_log_resend_buffer(void);
  * Checks the log level passed by the log function if enabled for that context or not.
  * This function can be called by applications before generating their logs.
  * Also called before writing new log messages.
- * @param handle pointer to an object containing information about one special logging context
+ * @param handle pointer to an 对象，其中包含一个特殊日志上下文的信息
  * @param loglevel this is the current log level of the log message to be sent
  * @return Value from DltReturnValue enum, DLT_RETURN_TRUE if log level is enabled
  */

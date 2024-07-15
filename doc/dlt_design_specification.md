@@ -248,7 +248,7 @@ required, the context array in step size DLT_USER_CONTEXT_ALLOC_SIZE,
 typically 500. Then store one entry for the new context to internal context array.
 - Send message DLT_REGISTER_CONTEXT to DLT daemon
 
-#### Unregister context and application
+#### 取消注册上下文 and application
 
 During unregister of context, the following things occur:
 
@@ -474,7 +474,7 @@ required, if the DLT daemon wants to send something to the DLT user library.
 - The length of the following description.
 - The application description.
 
-#### User Message: Unregister Application
+#### User Message: 取消注册应用程序
 
 This message is sent by the DLT user library once per application to unregister
 the application from the DLT daemon.
@@ -500,7 +500,7 @@ required, if the DLT daemon wants to send something to the DLT user library.
 - The length of the following description.
 - The context description.
 
-#### User Message: Unregister Context
+#### User Message: 取消注册上下文
 
 This message is sent by the DLT user library once for each context which should
 be unregistered from the DLT daemon.

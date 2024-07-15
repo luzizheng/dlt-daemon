@@ -75,7 +75,7 @@
  * @param size2 size in bytes of second data block to be written, 0 if not used.
  * @param data3 pointer to third data block to be written, null if not used.
  * @param size3 size in bytes of third data block to be written, 0 if not used.
- * @return negative value if there was an error.
+ * @return 如果出现错误则为负值.
  */
 extern DltReturnValue dlt_offline_trace_write(MultipleFilesRingBuffer *trace,
                                               const unsigned char *data1,

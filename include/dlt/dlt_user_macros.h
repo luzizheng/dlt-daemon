@@ -85,8 +85,8 @@
 
 /**
  * Create an object for a new context.
- * This macro has to be called first for every.
- * @param CONTEXT object containing information about one special logging context
+ * 每次都必须先调用这个宏.
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
  * @note To avoid the MISRA warning "Null statement is located close to other code or comments"
  *       remove the semicolon when using the macro.
  *       Example: DLT_DECLARE_CONTEXT(hContext)
@@ -96,8 +96,8 @@
 
 /**
  * Use an object of a new context created in another module.
- * This macro has to be called first for every.
- * @param CONTEXT object containing information about one special logging context
+ * 每次都必须先调用这个宏.
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
  * @note To avoid the MISRA warning "Null statement is located close to other code or comments"
  *       remove the semicolon when using the macro.
  *       Example: DLT_IMPORT_CONTEXT(hContext)
@@ -116,13 +116,13 @@
 
 
 /**
- * Unregister application.
+ * 取消注册应用程序.
  */
 #define DLT_UNREGISTER_APP() do { \
         (void)dlt_unregister_app(); } while(false)
 
 /**
- * Unregister application and flush the logs buffered in startup buffer if any.
+ * 取消注册应用程序 and flush the logs buffered in startup buffer if any.
  */
 #define DLT_UNREGISTER_APP_FLUSH_BUFFERED_LOGS() do { \
         (void)dlt_unregister_app_flush_buffered_logs(); } while(false)
@@ -136,7 +136,7 @@
 
 /**
  * Register context (with default log level and default trace status)
- * @param CONTEXT object containing information about one special logging context
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
  * @param CONTEXTID context id with maximal four characters
  * @param DESCRIPTION ASCII string containing description
  */
@@ -145,7 +145,7 @@
 
 /**
  * Register context with pre-defined log level and pre-defined trace status.
- * @param CONTEXT object containing information about one special logging context
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
  * @param CONTEXTID context id with maximal four characters
  * @param DESCRIPTION ASCII string containing description
  * @param LOGLEVEL log level to be pre-set for this context
@@ -158,7 +158,7 @@
 
 /**
  * Register context (with default log level and default trace status and log level change callback)
- * @param CONTEXT object containing information about one special logging context
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
  * @param CONTEXTID context id with maximal four characters
  * @param DESCRIPTION ASCII string containing description
  * @param CBK log level change callback to be registered
@@ -167,15 +167,15 @@
         (void)dlt_register_context_llccb(&(CONTEXT), CONTEXTID, DESCRIPTION, CBK); } while(false)
 
 /**
- * Unregister context.
- * @param CONTEXT object containing information about one special logging context
+ * 取消注册上下文.
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
  */
 #define DLT_UNREGISTER_CONTEXT(CONTEXT) do { \
         (void)dlt_unregister_context(&(CONTEXT)); } while(false)
 
 /**
  * Register callback function called when injection message was received
- * @param CONTEXT object containing information about one special logging context
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
  * @param SERVICEID service id of the injection message
  * @param CALLBACK function pointer to callback function
  */
@@ -184,7 +184,7 @@
 
 /**
  * Register callback function called when injection message was received
- * @param CONTEXT object containing information about one special logging context
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
  * @param SERVICEID service id of the injection message
  * @param CALLBACK function pointer to callback function
  * @param PRIV_DATA data specific to context
@@ -194,7 +194,7 @@
 
 /**
  * Register callback function called when log level of context was changed
- * @param CONTEXT object containing information about one special logging context
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
  * @param CALLBACK function pointer to callback function
  */
 #define DLT_REGISTER_LOG_LEVEL_CHANGED_CALLBACK(CONTEXT, CALLBACK) do { \
@@ -202,9 +202,9 @@
 
 /**
  * Send log message with variable list of messages (intended for verbose mode)
- * @param CONTEXT object containing information about one special logging context
- * @param LOGLEVEL the log level of the log message
- * @param ... variable list of arguments
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
+ * @param LOGLEVEL 日志信息的日志级别
+ * @param ... 变量参数表
  * @note To avoid the MISRA warning "The comma operator has been used outside a for statement"
  *       use a semicolon instead of a comma to separate the __VA_ARGS__.
  *       Example: DLT_LOG(hContext, DLT_LOG_INFO, DLT_STRING("Hello world"); DLT_INT(123));
@@ -228,10 +228,10 @@
 
 /**
  * Send log message with variable list of messages (intended for verbose mode)
- * @param CONTEXT object containing information about one special logging context
- * @param LOGLEVEL the log level of the log message
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
+ * @param LOGLEVEL 日志信息的日志级别
  * @param TS timestamp to be used for log message
- * @param ... variable list of arguments
+ * @param ... 变量参数表
  * @note To avoid the MISRA warning "The comma operator has been used outside a for statement"
  *       use a semicolon instead of a comma to separate the __VA_ARGS__.
  *       Example: DLT_LOG_TS(hContext, DLT_LOG_INFO, timestamp, DLT_STRING("Hello world"); DLT_INT(123));
@@ -257,10 +257,10 @@
 
 /**
  * Send log message with variable list of messages (intended for non-verbose mode)
- * @param CONTEXT object containing information about one special logging context
- * @param LOGLEVEL the log level of the log message
- * @param MSGID the message id of log message
- * @param ... variable list of arguments
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
+ * @param LOGLEVEL 日志信息的日志级别
+ * @param MSGID 日志报文的报文 ID
+ * @param ... 变量参数表
  * calls to DLT_STRING(), DLT_BOOL(), DLT_FLOAT32(), DLT_FLOAT64(),
  * DLT_INT(), DLT_UINT(), DLT_RAW()
  * @note To avoid the MISRA warning "The comma operator has been used outside a for statement"
@@ -286,11 +286,11 @@
 
 /**
  * Send log message with variable list of messages (intended for non-verbose mode)
- * @param CONTEXT object containing information about one special logging context
- * @param LOGLEVEL the log level of the log message
- * @param MSGID the message id of log message
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
+ * @param LOGLEVEL 日志信息的日志级别
+ * @param MSGID 日志报文的报文 ID
  * @param TS timestamp to be used for log message
- * @param ... variable list of arguments
+ * @param ... 变量参数表
  * calls to DLT_STRING(), DLT_BOOL(), DLT_FLOAT32(), DLT_FLOAT64(),
  * DLT_INT(), DLT_UINT(), DLT_RAW()
  * @note To avoid the MISRA warning "The comma operator has been used outside a for statement"
@@ -317,7 +317,7 @@
 #endif
 
 /**
- * Add string parameter to the log messsage.
+ * 在日志信息中添加字符串参数.
  * @param TEXT ASCII string
  */
 #define DLT_STRING(TEXT) \
@@ -632,7 +632,7 @@
 
 /**
  * Trace network message
- * @param CONTEXT object containing information about one special logging context
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
  * @param TYPE type of network trace message
  * @param HEADERLEN length of network message header
  * @param HEADER pointer to network message header
@@ -649,7 +649,7 @@
 
 /**
  * Trace network message, allow truncation
- * @param CONTEXT object containing information about one special logging context
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
  * @param TYPE type of network trace message
  * @param HEADERLEN length of network message header
  * @param HEADER pointer to network message header
@@ -666,7 +666,7 @@
 
 /**
  * Trace network message, segment large messages
- * @param CONTEXT object containing information about one special logging context
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
  * @param TYPE type of network trace message
  * @param HEADERLEN length of network message header
  * @param HEADER pointer to network message header
@@ -683,8 +683,8 @@
 
 /**
  * Send log message with string parameter.
- * @param CONTEXT object containing information about one special logging context
- * @param LOGLEVEL the log level of the log message
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
+ * @param LOGLEVEL 日志信息的日志级别
  * @param TEXT ASCII string
  */
 #define DLT_LOG_STRING(CONTEXT, LOGLEVEL, TEXT) \
@@ -697,8 +697,8 @@
 
 /**
  * Send log message with string parameter and integer parameter.
- * @param CONTEXT object containing information about one special logging context
- * @param LOGLEVEL the log level of the log messages
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
+ * @param LOGLEVEL 日志信息的日志级别s
  * @param TEXT ASCII string
  * @param INT_VAR integer value
  */
@@ -712,8 +712,8 @@
 
 /**
  * Send log message with string parameter and unsigned integer parameter.
- * @param CONTEXT object containing information about one special logging context
- * @param LOGLEVEL the log level of the log message
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
+ * @param LOGLEVEL 日志信息的日志级别
  * @param TEXT ASCII string
  * @param UINT_VAR unsigned integer value
  */
@@ -727,8 +727,8 @@
 
 /**
  * Send log message with unsigned integer parameter.
- * @param CONTEXT object containing information about one special logging context
- * @param LOGLEVEL the log level of the log message
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
+ * @param LOGLEVEL 日志信息的日志级别
  * @param UINT_VAR unsigned integer value
  */
 #define DLT_LOG_UINT(CONTEXT, LOGLEVEL, UINT_VAR) \
@@ -741,8 +741,8 @@
 
 /**
  * Send log message with integer parameter.
- * @param CONTEXT object containing information about one special logging context
- * @param LOGLEVEL the log level of the log message
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
+ * @param LOGLEVEL 日志信息的日志级别
  * @param INT_VAR integer value
  */
 #define DLT_LOG_INT(CONTEXT, LOGLEVEL, INT_VAR) \
@@ -755,8 +755,8 @@
 
 /**
  * Send log message with binary memory block.
- * @param CONTEXT object containing information about one special logging context
- * @param LOGLEVEL the log level of the log message
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
+ * @param LOGLEVEL 日志信息的日志级别
  * @param BUF pointer to memory block
  * @param LEN length of memory block
  */
@@ -816,8 +816,8 @@
 /**
  * Check if log level is enabled
  *
- * @param CONTEXT object containing information about one special logging context
- * @param LOGLEVEL the log level of the log message
+ * @param CONTEXT 对象，其中包含一个特殊日志上下文的信息
+ * @param LOGLEVEL 日志信息的日志级别
  */
 #define DLT_IS_LOG_LEVEL_ENABLED(CONTEXT, LOGLEVEL) \
     (dlt_user_is_logLevel_enabled(&CONTEXT, LOGLEVEL) == DLT_RETURN_TRUE)

@@ -1566,7 +1566,7 @@ DltReturnValue dlt_unregister_app_util(bool force_sending_messages)
         return DLT_RETURN_ERROR;
     }
 
-    /* Inform daemon to unregister application and all of its contexts */
+    /* Inform daemon to 取消注册应用程序 and all of its contexts */
     ret = dlt_user_log_send_unregister_application();
 
     DLT_SEM_LOCK();
@@ -1673,7 +1673,7 @@ DltReturnValue dlt_unregister_context(DltContext *handle)
 
     DLT_SEM_FREE();
 
-    /* Inform daemon to unregister context */
+    /* Inform daemon to 取消注册上下文 */
     ret = dlt_user_log_send_unregister_context(&log);
 
     return ret;

@@ -95,7 +95,7 @@ DltReturnValue dlt_log_init_multiple_logfiles(int logging_file_size, int logging
 /**
  * Print with variable arguments to specified file descriptor by DLT_LOG_MODE environment variable (like fprintf)
  * @param format format string for message
- * @return negative value if there was an error or the total number of characters written is returned on success
+ * @return 如果出现错误则为负值 or the total number of characters written is returned on success
  */
 int dlt_user_printf(const char *format, ...) PRINTF_FORMAT(1, 2);
 
@@ -103,7 +103,7 @@ int dlt_user_printf(const char *format, ...) PRINTF_FORMAT(1, 2);
  * Log ASCII string with null-termination to (external) logging facility
  * @param prio priority (see syslog() call)
  * @param s Pointer to ASCII string with null-termination
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_log(int prio, const char *s);
 
@@ -111,7 +111,7 @@ DltReturnValue dlt_log(int prio, const char *s);
  * Log with variable arguments to (external) logging facility (like printf)
  * @param prio priority (see syslog() call)
  * @param format format string for log message
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_vlog(int prio, const char *format, ...) PRINTF_FORMAT(2, 3);
 
@@ -120,7 +120,7 @@ DltReturnValue dlt_vlog(int prio, const char *format, ...) PRINTF_FORMAT(2, 3);
  * @param prio priority (see syslog() call)
  * @param size number of bytes to log
  * @param format format string for log message
- * @return negative value if there was an error
+ * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_vnlog(int prio, size_t size, const char *format, ...) PRINTF_FORMAT(3, 4);
 
