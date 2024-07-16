@@ -1,28 +1,3 @@
-/*
- * SPDX license identifier: MPL-2.0
- *
- * Copyright (C) 2024, Mercedes Benz Tech Innovation GmbH
- *
- * This file is part of GENIVI Project DLT - Diagnostic Log and Trace.
- *
- * This Source Code Form is subject to the terms of the
- * Mozilla Public License (MPL), v. 2.0.
- * If a copy of the MPL was not distributed with this file,
- * You can obtain one at http://mozilla.org/MPL/2.0/.
- *
- * For further information see https://www.covesa.global/.
- */
-
-/*!
- * \author
- * Daniel Weber <daniel.w.weber@mercedes-benz.com>
- *
- * \copyright Copyright © 2024 Mercedes Benz Tech Innovation GmbH. \n
- * License MPL-2.0: Mozilla Public License version 2.0 http://mozilla.org/MPL/2.0/.
- *
- * \file dlt_log.h
- */
-
 #ifndef DLT_COMMON_LOG_H
 #define DLT_COMMON_LOG_H
 
@@ -68,13 +43,13 @@ void dlt_log_set_filename(const char *filename);
 void dlt_log_set_level(int level);
 
 /**
- * Initialize (external) logging facility
+ * 初始化（外部）日志记录设施
  * @param mode positive, 0 = log to stdout, 1 = log to syslog, 2 = log to file, 3 = log to stderr
  */
 void dlt_log_init(int mode);
 
 /**
- * Initialize (external) logging facility
+ * 初始化（外部）日志记录设施
  * @param mode DltLoggingMode, 0 = log to stdout, 1 = log to syslog, 2 = log to file, 3 = log to stderr
  * @param enable_multiple_logfiles, true if multiple logfiles (incl. size limits) should be use
  * @param logging_file_size, maximum size in bytes of one logging file
@@ -83,19 +58,19 @@ void dlt_log_init(int mode);
 DltReturnValue dlt_log_init_multiple_logfiles_support(DltLoggingMode mode, bool enable_multiple_logfiles, int logging_file_size, int logging_files_max_size);
 
 /**
- * Initialize (external) logging facility for single logfile.
+ * 为单个日志文件初始化（外部）日志记录设施。
  */
 DltReturnValue dlt_log_init_single_logfile();
 
 /**
- * Initialize (external) logging facility for multiple files logging.
+ * 初始化（外部）多文件日志记录设施。
  */
 DltReturnValue dlt_log_init_multiple_logfiles(int logging_file_size, int logging_files_max_size);
 
 /**
- * Print with variable arguments to specified file descriptor by DLT_LOG_MODE environment variable (like fprintf)
- * @param format format string for message
- * @return 如果出现错误则为负值 or the total number of characters written is returned on success
+ * 通过 DLT_LOG_MODE 环境变量，使用变量参数向指定的文件描述符打印（类似 fprintf）。
+ * @param format 消息格式字符串
+ * @return 如果出现错误则为负值 或成功时返回写入的字符总数
  */
 int dlt_user_printf(const char *format, ...) PRINTF_FORMAT(1, 2);
 
