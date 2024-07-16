@@ -154,7 +154,7 @@
 /**
  * GET_LOG_INFO 的定义
  */
-#   define DLT_GET_LOG_INFO_HEADER 18  /* 获取响应文本中日志信息标头的大小 */
+#   define DLT_GET_LOG_INFO_HEADER 18  /* 获取响应文本中日志信息header的大小 */
 #   define GET_LOG_INFO_LENGTH 13
 #   define SERVICE_OPT_LENGTH 3
 
@@ -345,7 +345,7 @@ typedef enum
 extern const char dltSerialHeader[DLT_ID_SIZE];
 
 /**
- * 将包含字符 "DLS "+ 0x01 的串行标头定义为字符。
+ * 将包含字符 "DLS "+ 0x01 的串行header定义为字符。
  */
 extern char dltSerialHeaderChar[DLT_ID_SIZE];
 
@@ -369,7 +369,7 @@ extern char dltShmName[NAME_MAX + 1];
 typedef char ID4[DLT_ID_SIZE];
 
 /**
- * DLT 文件存储标头的结构。该标头用于每个存储的 DLT 信息之前。
+ * DLT 文件存储header的结构。该header用于每个存储的 DLT 信息之前。
  */
 typedef struct
 {
@@ -380,17 +380,17 @@ typedef struct
 } DLT_PACKED DltStorageHeader;
 
 /**
- * DLT 标准标头的结构。每个 DLT 报文都使用该标头。
+ * DLT 标准header的结构。每个 DLT 报文都使用该header。
  */
 typedef struct
 {
     uint8_t htyp;           /**< 该参数包含多项信息，请参见以下定义 */
     uint8_t mcnt;           /**< 每发送一条 DLT 信息，信息计数器都会增加 */
-    uint16_t len;           /**< 完整报文的长度（不含存储标头) */
+    uint16_t len;           /**< 完整报文的长度（不含存储header) */
 } DLT_PACKED DltStandardHeader;
 
 /**
- * DLT 额外标头参数的结构。每个参数只有在 htyp 中启用后才会发送。
+ * DLT 额外header参数的结构。每个参数只有在 htyp 中启用后才会发送。
  */
 typedef struct
 {
@@ -400,7 +400,7 @@ typedef struct
 } DLT_PACKED DltStandardHeaderExtra;
 
 /**
- * DLT 扩展标头的结构。只有在 htyp 参数中启用时，才会发送该标头。
+ * DLT 扩展header的结构。只有在 htyp 参数中启用时，才会发送该header。
  */
 typedef struct
 {
@@ -423,7 +423,7 @@ typedef struct sDltMessage
     int32_t resync_offset;
 
     /* size 参数 */
-    int32_t headersize;    /**< 包括存储标头在内的整个标头的size */
+    int32_t headersize;    /**< 包括存储header在内的整个header的size */
     int32_t datasize;      /**< 完整有效载荷的size */
 
     /* 当前加载信息的缓冲区 */
@@ -432,10 +432,10 @@ typedef struct sDltMessage
     uint8_t *databuffer;         /**< 用于加载有效载荷的缓冲区 */
     int32_t databuffersize;
 
-    /* 当前加载的报文的标头值 */
-    DltStorageHeader *storageheader;        /**< 指向当前已加载标头的存储标头的指针 */
-    DltStandardHeader *standardheader;      /**< 指向当前已加载的标头的标准标头指针 */
-    DltStandardHeaderExtra headerextra;     /**< 当前已加载的标头的额外参数 */
+    /* 当前加载的报文的header值 */
+    DltStorageHeader *storageheader;        /**< 指向当前已加载header的存储header的指针 */
+    DltStandardHeader *standardheader;      /**< 指向当前已加载的header的标准header指针 */
+    DltStandardHeaderExtra headerextra;     /**< 当前已加载的header的额外参数 */
     DltExtendedHeader *extendedheader;      /**< 指向当前已加载头扩展的指针 */
 } DltMessage;
 
@@ -958,7 +958,7 @@ DltReturnValue dlt_message_filter_check(DltMessage *msg, DltFilter *filter, int 
 
 /**
  * 从内存缓冲区读取信息.
- * 缓冲区中的信息没有存储头.
+ * 缓冲区中的信息没有存储header.
  * @param msg 指向组织获取 DLT 信息的结构
  * @param buffer 内存缓冲区指针
  * @param length 缓冲区中的信息长度
@@ -969,7 +969,7 @@ DltReturnValue dlt_message_filter_check(DltMessage *msg, DltFilter *filter, int 
 int dlt_message_read(DltMessage *msg, uint8_t *buffer, unsigned int length, int resync, int verbose);
 
 /**
- * 获取标准标头额外参数
+ * 获取标准header额外参数
  * @param msg 指向组织获取 DLT 信息的结构
  * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
@@ -977,7 +977,7 @@ int dlt_message_read(DltMessage *msg, uint8_t *buffer, unsigned int length, int 
 DltReturnValue dlt_message_get_extraparameters(DltMessage *msg, int verbose);
 
 /**
- * 设置标准标头额外参数
+ * 设置标准header额外参数
  * @param msg 指向组织获取 DLT 信息的结构
  * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
@@ -993,105 +993,104 @@ DltReturnValue dlt_message_set_extraparameters(DltMessage *msg, int verbose);
  */
 DltReturnValue dlt_file_init(DltFile *file, int verbose);
 /**
- * Set a list to filters.
- * This function should be called before loading a DLT file, if filters should be used.
- * A filter list is an array of filters. Several filters are combined logically by or operation.
- * The filter list is not copied, so take care to keep list in memory.
- * @param file pointer to structure of organising access to DLT file
- * @param filter pointer to filter list array
+ * 为文件筛选器设置一个列表
+ * 如果要使用过滤器，应在加载 DLT 文件前调用此函数。
+ * 过滤器列表是一个过滤器数组。多个过滤器在逻辑上通过或操作组合在一起.
+ * 过滤器列表不会被复制，因此请注意将列表保存在内存中.
+ * @param file 指向组织访问 DLT 文件的结构的指针
+ * @param filter 指向过滤器列表数组的指针
  * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_file_set_filter(DltFile *file, DltFilter *filter, int verbose);
 /**
- * Initialising loading a DLT file.
- * @param file pointer to structure of organising access to DLT file
- * @param filename filename of DLT file
+ * 初始化加载 DLT 文件.
+ * @param file 指向组织访问 DLT 文件的结构的指针
+ * @param filename DLT 文件的文件名
  * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_file_open(DltFile *file, const char *filename, int verbose);
 /**
- * This function reads DLT file and parse DLT message one by one.
- * Each message will be written into new file.
- * If a filter is set, the filter list is used.
- * @param file pointer to structure of organizing access to DLT file
- * @param filename file to contain parsed DLT messages.
- * @param type 1 = payload as hex, 2 = payload as ASCII.
+ * 该函数读取 DLT 文件并逐条解析 DLT 信息.
+ * 每条信息都将写入新文件.
+ * 如果设置了过滤器，则使用过滤器列表.
+ * @param file 指向组织访问 DLT 文件结构的指针
+ * @param filename 包含已解析的 DLT 信息的文件.
+ * @param type 1 = 有效载荷为十六进制，2 = 有效载荷为 ASCII 编码
  * @param verbose 如果设置为 true，将打印出详细的信息.
- * @return 0 = message does not match filter, 1 = message was read, 如果出现错误则为负值
+ * @return 0 = 信息与过滤器不匹配，1 = 信息已读取、 如果出现错误则为负值
  */
 DltReturnValue dlt_file_quick_parsing(DltFile *file, const char *filename, int type, int verbose);
 /**
- * Find next message in the DLT file and parse them.
- * This function finds the next message in the DLT file.
- * If a filter is set, the filter list is used.
- * @param file pointer to structure of organising access to DLT file
+ * 查找 DLT 文件中的下一条信息并进行解析.
+ * 该函数在 DLT 文件中查找下一条信息.
+ * 如果设置了过滤器，则使用过滤器列表.
+ * @param file 指向组织访问 DLT 文件的结构的指针
  * @param verbose 如果设置为 true，将打印出详细的信息.
- * @return 0 = message does not match filter, 1 = message was read, 如果出现错误则为负值
+ * @return 0 = 信息与过滤器不匹配，1 = 信息已读取、 如果出现错误则为负值
  */
 DltReturnValue dlt_file_read(DltFile *file, int verbose);
 /**
- * Find next message in the DLT file in RAW format (without storage header) and parse them.
- * This function finds the next message in the DLT file.
- * If a filter is set, the filter list is used.
- * @param file pointer to structure of organising access to DLT file
- * @param resync Resync to serial header when set to true
+ * 以 RAW 格式（不含存储header）查找 DLT 文件中的下一条信息并进行解析.
+ * 该函数在 DLT 文件中查找下一条信息.
+ * 如果设置了过滤器，则使用过滤器列表.
+ * @param file 指向组织访问 DLT 文件的结构的指针
+ * @param resync 设置为 "true "时，重新同步到串行header
  * @param verbose 如果设置为 true，将打印出详细的信息.
- * @return 0 = message does not match filter, 1 = message was read, 如果出现错误则为负值
+ * @return 0 = 信息与过滤器不匹配，1 = 信息已读取、 如果出现错误则为负值
  */
 DltReturnValue dlt_file_read_raw(DltFile *file, int resync, int verbose);
 /**
- * Closing loading a DLT file.
- * @param file pointer to structure of organising access to DLT file
+ * 关闭加载 DLT 文件.
+ * @param file 指向组织访问 DLT 文件的结构的指针
  * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_file_close(DltFile *file, int verbose);
 /**
- * Load standard header of a message from file
- * @param file pointer to structure of organising access to DLT file
+ * 从文件中加载信息的标准header
+ * @param file 指向组织访问 DLT 文件的结构的指针
  * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_file_read_header(DltFile *file, int verbose);
 /**
- * Load standard header of a message from file in RAW format (without storage header)
- * @param file pointer to structure of organising access to DLT file
- * @param resync Resync to serial header when set to true
+ * 从 RAW 格式文件加载信息的标准header（不含存储header）
+ * @param file 指向组织访问 DLT 文件的结构的指针
+ * @param resync 设置为 "true "时，重新同步到串行header
  * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_file_read_header_raw(DltFile *file, int resync, int verbose);
 /**
- * Load, if available in message, extra standard header fields and
- * extended header of a message from file
- * (dlt_file_read_header() must have been called before this call!)
- * @param file pointer to structure of organising access to DLT file
+ * 从文件中加载信息的额外标准header字段和扩展header（如果信息中有的话）
+ * （dlt_file_read_header() 必须在调用此调用之前被调用过！）。
+ * @param file 指向组织访问 DLT 文件的结构的指针
  * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_file_read_header_extended(DltFile *file, int verbose);
 /**
- * Load payload of a message from file
- * (dlt_file_read_header() must have been called before this call!)
- * @param file pointer to structure of organising access to DLT file
+ * 从文件加载信息的有效载荷
+ * (dlt_file_read_header() 必须在该调用之前被调用过！)
+ * @param file 指向组织访问 DLT 文件的结构的指针
  * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_file_read_data(DltFile *file, int verbose);
 /**
- * Load headers and payload of a message selected by the index.
- * If filters are set, index is based on the filtered list.
- * @param file pointer to structure of organising access to DLT file
- * @param index position of message in the files beginning from zero
+ * 加载索引所选报文的headers和payload.
+ * 如果设置了筛选器，索引将基于筛选列表.
+ * @param file 指向组织访问 DLT 文件的结构的指针
+ * @param index 信息在文件中的位置，从零开始
  * @param verbose 如果设置为 true，将打印出详细的信息.
- * @return number of messages loaded, 如果出现错误则为负值
+ * @return 已加载的信息数, 如果出现错误则为负值
  */
 DltReturnValue dlt_file_message(DltFile *file, int index, int verbose);
 /**
- * Free the used memory by the organising structure of file.
- * @param file pointer to structure of organising access to DLT file
+ * 通过文件的组织结构释放已使用的内存.
+ * @param file 指向组织访问 DLT 文件的结构的指针
  * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
@@ -1099,75 +1098,75 @@ DltReturnValue dlt_file_free(DltFile *file, int verbose);
 
 #if defined DLT_DAEMON_USE_FIFO_IPC || defined DLT_LIB_USE_FIFO_IPC
 /**
- * Set FIFO base direction
- * @param pipe_dir the pipe direction
+ * 设置 FIFO 基本方向
+ * @param pipe_dir 管道方向
  */
 void dlt_log_set_fifo_basedir(const char *pipe_dir);
 #endif
 
 /**
- * Set whether to print "name" and "unit" attributes in console output
- * @param state  true = with attributes, false = without attributes
+ *  设置是否在控制台输出中打印 "name "和 "unit "属性
+ * @param state  true = 带属性, false = 不带属性
  */
 void dlt_print_with_attributes(bool state);
 
 /**
- * Initialising a dlt receiver structure
- * @param receiver pointer to dlt receiver structure
- * @param _fd handle to file/socket/fifo, fram which the data should be received
- * @param type specify whether received data is from socket or file/fifo
- * @param _buffersize size of data buffer for storing the received data
+ * 初始化 dlt 接收器结构
+ * @param receiver 指向 dlt 接收器结构的指针
+ * @param _fd 文件/套接字/fifo 的句柄，数据应从该句柄接收
+ * @param type 指定接收的数据来自套接字还是文件/fifo
+ * @param _buffersize 用于存储接收数据的数据缓冲区大小
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_receiver_init(DltReceiver *receiver, int _fd, DltReceiverType type, int _buffersize);
 /**
- * De-Initialize a dlt receiver structure
- * @param receiver pointer to dlt receiver structure
+ * 取消初始化 dlt 接收机结构
+ * @param receiver 指向 dlt 接收器结构的指针
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_receiver_free(DltReceiver *receiver);
 /**
- * Initialising a dlt receiver structure
- * @param receiver pointer to dlt receiver structure
- * @param fd handle to file/socket/fifo, fram which the data should be received
- * @param type specify whether received data is from socket or file/fifo
- * @param buffer data buffer for storing the received data
- * @return 如果出现错误则为负值 and zero if success
+ * 初始化 dlt 接收器结构
+ * @param receiver 指向 dlt 接收器结构的指针
+ * @param fd 文件/套接字/fifo 的句柄，数据应从该句柄接收
+ * @param type 指定接收的数据来自套接字还是文件/fifo
+ * @param buffer 数据缓冲器，用于存储接收到的数据
+ * @return 如果出现错误则为负值 0表示成功
  */
 DltReturnValue dlt_receiver_init_global_buffer(DltReceiver *receiver, int fd, DltReceiverType type, char **buffer);
 /**
- * De-Initialize a dlt receiver structure
- * @param receiver pointer to dlt receiver structure
- * @return 如果出现错误则为负值 and zero if success
+ * 取消初始化 dlt 接收机结构
+ * @param receiver 指向 dlt 接收器结构的指针
+ * @return 如果出现错误则为负值 0表示成功
  */
 DltReturnValue dlt_receiver_free_global_buffer(DltReceiver *receiver);
 /**
- * Receive data from socket or file/fifo using the dlt receiver structure
- * @param receiver pointer to dlt receiver structure
- * @return number of received bytes or 如果出现错误则为负值
+ * 使用 dlt 接收器结构从套接字或文件/fifo 接收数据
+ * @param receiver 指向 dlt 接收器结构的指针
+ * @return 大于0为接收字节数 or 如果出现错误则为负值
  */
 int dlt_receiver_receive(DltReceiver *receiver);
 /**
- * Remove a specific size of bytes from the received data
- * @param receiver pointer to dlt receiver structure
- * @param size amount of bytes to be removed
+ * 从接收的数据中删除特定大小的字节
+ * @param receiver 指向 dlt 接收器结构的指针
+ * @param size 要删除的字节数
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_receiver_remove(DltReceiver *receiver, int size);
 /**
- * Move data from last receive call to front of receive buffer
- * @param receiver pointer to dlt receiver structure
+ * 将最后一次接收调用的数据移至接收缓冲区前端
+ * @param receiver 指向 dlt 接收器结构的指针
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_receiver_move_to_begin(DltReceiver *receiver);
 
 /**
- * Check whether to_get amount of data is available in receiver and
- * copy it to dest. Skip the DltUserHeader if skip_header is set to 1.
- * @param receiver pointer to dlt receiver structure
- * @param dest pointer to the destination buffer
- * @param to_get size of the data to copy in dest
- * @param skip_header whether if the DltUserHeader must be skipped.
+ * 检查接收器中的 to_get 数据量是否可用，并将其复制到 dest。
+ * 如果 skip_header 设置为 1，则跳过 DltUserHeader。
+ * @param receiver 指向 dlt 接收器结构的指针
+ * @param dest 指向目标缓冲区的指针
+ * @param to_get 要复制到 dest 中的数据的大小
+ * @param skip_header 是否必须跳过 DltUserHeader
  */
 int dlt_receiver_check_and_get(DltReceiver *receiver,
                                void *dest,
@@ -1175,104 +1174,104 @@ int dlt_receiver_check_and_get(DltReceiver *receiver,
                                unsigned int skip_header);
 
 /**
- * Fill out storage header of a dlt message
- * @param storageheader pointer to storage header of a dlt message
- * @param ecu name of ecu to be set in storage header
+ * 填写 dlt 报文的存储header
+ * @param storageheader 指向 dlt 报文存储header的指针
+ * @param ecu 要在存储标header中设置的控制器名称
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_set_storageheader(DltStorageHeader *storageheader, const char *ecu);
 /**
- * Check if a storage header contains its marker
- * @param storageheader pointer to storage header of a dlt message
+ * 检查存储标header是否包含标记
+ * @param storageheader 指向 dlt 报文存储header的指针
  * @return 0 no, 1 yes, 如果出现错误则为负值
  */
 DltReturnValue dlt_check_storageheader(DltStorageHeader *storageheader);
 
 /**
- * Checks if received size is big enough for expected data
- * @param received size
- * @param required size
- * @return negative value if required size is not sufficient
+ * 检查接收数据的size是否足以容纳预期数据
+ * @param received 接收size
+ * @param required 所需size
+ * @return 如果所需size不足，则为负值
  * */
 DltReturnValue dlt_check_rcv_data_size(int received, int required);
 
 /**
- * Initialise static ringbuffer with a size of size.
- * Initialise as server. Init counters.
- * Memory is already allocated.
- * @param buf Pointer to ringbuffer structure
- * @param ptr Ptr to ringbuffer memory
- * @param size Maximum size of buffer in bytes
+ * 初始化静态 ringbuffer，大小为 size
+ * 初始化为服务器。初始化计数器。
+ * 内存已分配。
+ * @param buf 指向 ringbuffer 结构的指针
+ * @param ptr 指向环形缓冲区内存的指针
+ * @param size 缓冲区的最大大小（字节
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_buffer_init_static_server(DltBuffer *buf, const unsigned char *ptr, uint32_t size);
 
 /**
- * Initialize static ringbuffer with a size of size.
- * Initialise as a client. Do not change counters.
- * Memory is already allocated.
- * @param buf Pointer to ringbuffer structure
- * @param ptr Ptr to ringbuffer memory
- * @param size Maximum size of buffer in bytes
+ * 初始化静态 ringbuffer，大小为 size。
+ * 以客户端身份初始化。不要更改计数器。
+ * 内存已分配。
+ * @param buf 指向 ringbuffer 结构的指针
+ * @param ptr 指向环形缓冲区内存的指针
+ * @param size 缓冲区的最大大小（字节
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_buffer_init_static_client(DltBuffer *buf, const unsigned char *ptr, uint32_t size);
 
 /**
- * Initialize dynamic ringbuffer with a size of size.
- * Initialise as a client. Do not change counters.
- * Memory will be allocated starting with min_size.
- * If more memory is needed size is increased wit step_size.
- * The maximum size is max_size.
- * @param buf Pointer to ringbuffer structure
- * @param min_size Minimum size of buffer in bytes
- * @param max_size Maximum size of buffer in bytes
- * @param step_size size of which ringbuffer is increased
+ * 初始化动态环形缓冲区，大小为size.
+ * 以客户端身份初始化。不要更改计数器。
+ * 内存将从 min_size 开始分配。
+ * 如果需要更多内存，内存大小会随 step_size 增加。
+ * 最大size为 max_size。
+ * @param buf 指向 ringbuffer 结构的指针
+ * @param min_size 缓冲区的最小大小（字节
+ * @param max_size 缓冲区的最大大小（字节
+ * @param step_size 环缓冲区的大小增加
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_buffer_init_dynamic(DltBuffer *buf, uint32_t min_size, uint32_t max_size, uint32_t step_size);
 
 /**
- * Deinitilaise usage of static ringbuffer
- * @param buf Pointer to ringbuffer structure
+ * 取消静态环形缓冲区的使用
+ * @param buf 指向 ringbuffer 结构的指针
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_buffer_free_static(DltBuffer *buf);
 
 /**
- * Release and free memory used by dynamic ringbuffer
- * @param buf Pointer to ringbuffer structure
+ * 释放和释放动态环形缓冲区使用的内存
+ * @param buf 指向 ringbuffer 结构的指针
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_buffer_free_dynamic(DltBuffer *buf);
 
 /**
- * Check if message fits into buffer.
- * @param buf Pointer to buffer structure
- * @param needed Needed size
- * @return DLT_RETURN_OK if enough space, DLT_RETURN_ERROR otherwise
+ * 检查信息是否适合放入缓冲区。
+ * @param buf 缓冲区结构指针
+ * @param needed 需要 size
+ * @return 足够空间返回DLT_RETURN_OK, 其他返回DLT_RETURN_ERROR
  */
 DltReturnValue dlt_buffer_check_size(DltBuffer *buf, int needed);
 
 /**
- * Write one entry to ringbuffer
- * @param buf Pointer to ringbuffer structure
- * @param data Pointer to data to be written to ringbuffer
- * @param size Size of data in bytes to be written to ringbuffer
+ * 向 ringbuffer 写入一个条目
+ * @param buf 指向 ringbuffer 结构的指针
+ * @param data 指向要写入 ringbuffer 的数据的指针
+ * @param size 以字节为单位写入环形缓冲区的数据大小
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_buffer_push(DltBuffer *buf, const unsigned char *data, unsigned int size);
 
 /**
- * Write up to three entries to ringbuffer.
- * Entries are joined to one block.
- * @param buf Pointer to ringbuffer structure
- * @param data1 Pointer to data to be written to ringbuffer
- * @param size1 Size of data in bytes to be written to ringbuffer
- * @param data2 Pointer to data to be written to ringbuffer
- * @param size2 Size of data in bytes to be written to ringbuffer
- * @param data3 Pointer to data to be written to ringbuffer
- * @param size3 Size of data in bytes to be written to ringbuffer
+ * 最多向 ringbuffer 写入三个条目。
+ * 条目连接到一个区块。
+ * @param buf 指向 ringbuffer 结构的指针
+ * @param data1 指向要写入 ringbuffer 的数据的指针
+ * @param size1 以字节为单位写入环形缓冲区的数据大小
+ * @param data2 指向要写入 ringbuffer 的数据的指针
+ * @param size2 以字节为单位写入环形缓冲区的数据大小
+ * @param data3 指向要写入 ringbuffer 的数据的指针
+ * @param size3 以字节为单位写入环形缓冲区的数据大小
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_buffer_push3(DltBuffer *buf,
@@ -1284,112 +1283,111 @@ DltReturnValue dlt_buffer_push3(DltBuffer *buf,
                                 unsigned int size3);
 
 /**
- * Read one entry from ringbuffer.
- * Remove it from ringbuffer.
- * @param buf Pointer to ringbuffer structure
- * @param data Pointer to data read from ringbuffer
- * @param max_size Max size of read data in bytes from ringbuffer
- * @return size of read data, zero if no data available, 如果出现错误则为负值
+ * 从 ringbuffer 中读取一个条目。
+ * 将其从 ringbuffer 中移除。
+ * @param buf 指向 ringbuffer 结构的指针
+ * @param data 从环形缓冲区读取数据的指针
+ * @param max_size 从环形缓冲区读取数据的最大字节数
+ * @return 读取数据的大小，无数据时为 0, 如果出现错误则为负值
  */
 int dlt_buffer_pull(DltBuffer *buf, unsigned char *data, int max_size);
 
 /**
- * Read one entry from ringbuffer.
- * Do not remove it from ringbuffer.
- * @param buf Pointer to ringbuffer structure
- * @param data Pointer to data read from ringbuffer
- * @param max_size Max size of read data in bytes from ringbuffer
- * @return size of read data, zero if no data available, 如果出现错误则为负值
+ * 从 ringbuffer 中读取一个条目。
+ * 不会将其从 ringbuffer 中移除。
+ * @param buf 指向 ringbuffer 结构的指针
+ * @param data 从环形缓冲区读取数据的指针
+ * @param max_size 从环形缓冲区读取数据的最大字节数
+ * @return 读取数据的大小，无数据时为 0, 如果出现错误则为负值
  */
 int dlt_buffer_copy(DltBuffer *buf, unsigned char *data, int max_size);
 
 /**
- * Remove entry from ringbuffer.
- * @param buf Pointer to ringbuffer structure
- * @return size of read data, zero if no data available, 如果出现错误则为负值
+ * 从 ringbuffer 中删除条目。
+ * @param buf 指向 ringbuffer 结构的指针
+ * @return 读取数据的大小，无数据时为 0, 如果出现错误则为负值
  */
 int dlt_buffer_remove(DltBuffer *buf);
 
 /**
- * Print information about buffer and log to internal DLT log.
- * @param buf Pointer to ringbuffer structure
+ * 打印缓冲区信息并记录到内部 DLT 日志中。
+ * @param buf 指向 ringbuffer 结构的指针
  */
 void dlt_buffer_info(DltBuffer *buf);
 
 /**
- * Print status of buffer and log to internal DLT log.
- * @param buf Pointer to ringbuffer structure
+ * 打印缓冲区的状态并记录到内部 DLT 日志中
+ * @param buf 指向 ringbuffer 结构的指针
  */
 void dlt_buffer_status(DltBuffer *buf);
 
 /**
- * Get total size in bytes of ringbuffer.
- * If buffer is dynamic, max size is returned.
- * @param buf Pointer to ringbuffer structure
- * @return total size of buffer
+ * 获取环形缓冲区的总大小（以字节为单位）。
+ * 如果缓冲区是动态的，则返回最大值。
+ * @param buf 指向 ringbuffer 结构的指针
+ * @return 缓冲区总容量
  */
 uint32_t dlt_buffer_get_total_size(DltBuffer *buf);
 
 /**
- * Get used size in bytes of ringbuffer.
- * @param buf Pointer to ringbuffer structure
- * @return used size of buffer
+ * 以字节为单位获取已使用的环形缓冲区大小。
+ * @param buf 指向 ringbuffer 结构的指针
+ * @return 使用的缓冲区大小
  */
 int dlt_buffer_get_used_size(DltBuffer *buf);
 
 /**
- * Get number of entries in ringbuffer.
- * @param buf Pointer to ringbuffer structure
- * @return number of entries
+ * 获取 ringbuffer 中的条目数。
+ * @param buf 指向 ringbuffer 结构的指针
+ * @return 条目数
  */
 int dlt_buffer_get_message_count(DltBuffer *buf);
 
 #   if !defined (__WIN32__)
 
 /**
- * Helper function: Setup serial connection
- * @param fd File descriptor of serial tty device
- * @param speed Serial line speed, as defined in termios.h
+ * 辅助功能 设置串行连接
+ * @param fd 串行 tty 设备的文件描述符
+ * @param speed 串行线速度，在 termios.h 中定义
  * @return 如果出现错误则为负值
  */
 DltReturnValue dlt_setup_serial(int fd, speed_t speed);
 
 /**
- * Helper function: Convert serial line baudrate (as number) to line speed (as defined in termios.h)
- * @param baudrate Serial line baudrate (as number)
- * @return Serial line speed, as defined in termios.h
+ * 辅助函数： 将串行线路波特率（数字）转换为线路速度（在 termios.h 中定义）
+ * @param baudrate 串行线路波特率（以数字表示）
+ * @return 串行线速度，在 termios.h 中定义
  */
 speed_t dlt_convert_serial_speed(int baudrate);
 
 /**
- * Print dlt version and dlt svn version to buffer
- * @param buf Pointer to buffer
- * @param size size of buffer
+ * 将 dlt 版本和 dlt svn 版本打印到缓冲区
+ * @param buf 缓冲区指针
+ * @param size 缓冲区大小
  */
 void dlt_get_version(char *buf, size_t size);
 
 /**
- * Print dlt major version to buffer
- * @param buf Pointer to buffer
- * @param size size of buffer
+ * 将 dlt 主要版本打印到缓冲区
+ * @param buf 缓冲区指针
+ * @param size 缓冲区大小
  */
 void dlt_get_major_version(char *buf, size_t size);
 
 /**
- * Print dlt minor version to buffer
- * @param buf Pointer to buffer
- * @param size size of buffer
+ * 将 dlt 次版本打印到缓冲区
+ * @param buf 缓冲区指针
+ * @param size 缓冲区大小
  */
 void dlt_get_minor_version(char *buf, size_t size);
 
 #   endif
 
-/* Function prototypes which should be used only internally */
+/* 仅在内部使用的函数原型 */
 /*                                                          */
 
 /**
- * Common part of initialisation. Evaluates the following environment variables
- * and stores them in dlt_user struct:
+ * 初始化的常见部分。评估以下环境变量，并将其存储在 dlt_user 结构中:
  * - DLT_DISABLE_EXTENDED_HEADER_FOR_NONVERBOSE
  * - DLT_LOCAL_PRINT_MODE (AUTOMATIC: 0, FORCE_ON: 2, FORCE_OFF: 3)
  * - DLT_INITIAL_LOG_LEVEL (e.g. APPx:CTXa:6;APPx:CTXb:5)
@@ -1404,13 +1402,13 @@ void dlt_get_minor_version(char *buf, size_t size);
 DltReturnValue dlt_init_common(void);
 
 /**
- * Return the uptime of the system in 0.1 ms resolution
- * @return 0 if there was an error
+ * 以 0.1 毫秒的分辨率返回系统正常运行时间
+ * @return 如果出现错误，则为 0
  */
 uint32_t dlt_uptime(void);
 
 /**
- * Print header of a DLT message
+ * 打印 DLT 报文头
  * @param message 指向组织获取 DLT 信息的结构
  * @param text 指向 ASCII 字符串的指针，在该字符串中写入header
  * @param size 文本缓冲区的最大尺寸
@@ -1420,9 +1418,9 @@ uint32_t dlt_uptime(void);
 DltReturnValue dlt_message_print_header(DltMessage *message, char *text, uint32_t size, int verbose);
 
 /**
- * Print payload of a DLT message as Hex-Output
+ * 将 DLT 报文的有效载荷打印为十六进制输出
  * @param message 指向组织获取 DLT 信息的结构
- * @param text pointer to a ASCII string, in which the output is written
+ * @param text 指向 ASCII 字符串的指针，输出将写入该字符串。
  * @param size 文本缓冲区的最大尺寸
  * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
@@ -1430,9 +1428,9 @@ DltReturnValue dlt_message_print_header(DltMessage *message, char *text, uint32_
 DltReturnValue dlt_message_print_hex(DltMessage *message, char *text, uint32_t size, int verbose);
 
 /**
- * Print payload of a DLT message as ASCII-Output
+ * 以 ASCII 输出格式打印 DLT 报文的有效载荷
  * @param message 指向组织获取 DLT 信息的结构
- * @param text pointer to a ASCII string, in which the output is written
+ * @param text 指向 ASCII 字符串的指针，输出将写入该字符串。
  * @param size 文本缓冲区的最大尺寸
  * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
@@ -1440,9 +1438,9 @@ DltReturnValue dlt_message_print_hex(DltMessage *message, char *text, uint32_t s
 DltReturnValue dlt_message_print_ascii(DltMessage *message, char *text, uint32_t size, int verbose);
 
 /**
- * Print payload of a DLT message as Mixed-Ouput (Hex and ASCII), for plain text output
+ * 将 DLT 报文的有效载荷打印为混合输出（十六进制和 ASCII），用于纯文本输出
  * @param message 指向组织获取 DLT 信息的结构
- * @param text pointer to a ASCII string, in which the output is written
+ * @param text 指向 ASCII 字符串的指针，输出将写入该字符串。
  * @param size 文本缓冲区的最大尺寸
  * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
@@ -1450,9 +1448,9 @@ DltReturnValue dlt_message_print_ascii(DltMessage *message, char *text, uint32_t
 DltReturnValue dlt_message_print_mixed_plain(DltMessage *message, char *text, uint32_t size, int verbose);
 
 /**
- * Print payload of a DLT message as Mixed-Ouput (Hex and ASCII), for HTML text output
+ * 将 DLT 报文的有效载荷打印为混合输出（十六进制和 ASCII），用于 HTML 文本输出
  * @param message 指向组织获取 DLT 信息的结构
- * @param text pointer to a ASCII string, in which the output is written
+ * @param text 指向 ASCII 字符串的指针，输出将写入该字符串。
  * @param size 文本缓冲区的最大尺寸
  * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
@@ -1460,14 +1458,14 @@ DltReturnValue dlt_message_print_mixed_plain(DltMessage *message, char *text, ui
 DltReturnValue dlt_message_print_mixed_html(DltMessage *message, char *text, uint32_t size, int verbose);
 
 /**
- * Decode and print a argument of a DLT message
+ * 解码并打印 DLT 信息的参数
  * @param msg 指向组织获取 DLT 信息的结构
- * @param type_info Type of argument
- * @param ptr pointer to pointer to data (pointer to data is changed within this function)
- * @param datalength pointer to datalength (datalength is changed within this function)
- * @param text pointer to a ASCII string, in which the output is written
+ * @param type_info 参数类型
+ * @param ptr 指向数据指针的指针（数据指针在该函数内更改）
+ * @param datalength 指向数据长度的指针（数据长度在此函数中改变）
+ * @param text 指向 ASCII 字符串的指针，输出将写入该字符串。
  * @param textlength 文本缓冲区的最大尺寸
- * @param byteLength If argument is a string, and this value is 0 or greater, this value will be taken as string length
+ * @param byteLength 如果参数是字符串，且该值为 0 或更大，则该值将作为字符串长度
  * @param verbose 如果设置为 true，将打印出详细的信息.
  * @return 如果出现错误则为负值
  */
@@ -1481,12 +1479,12 @@ DltReturnValue dlt_message_argument_print(DltMessage *msg,
                                           int verbose);
 
 /**
- * Check environment variables.
+ * 检查环境变量。
  */
 void dlt_check_envvar(void);
 
 /**
- * Parse the response text and identifying service id and its options.
+ * 解析响应文本，识别服务 ID 及其选项。
  *
  * @param resp_text   char *
  * @param service_id  int *
@@ -1496,7 +1494,7 @@ void dlt_check_envvar(void);
 int dlt_set_loginfo_parse_service_id(char *resp_text, uint32_t *service_id, uint8_t *service_opt);
 
 /**
- * Convert get log info from ASCII to uint16
+ * 将获取的日志信息从 ASCII 转换为 uint16
  *
  * @param rp        char
  * @param rp_count  int
@@ -1505,7 +1503,7 @@ int dlt_set_loginfo_parse_service_id(char *resp_text, uint32_t *service_id, uint
 int16_t dlt_getloginfo_conv_ascii_to_uint16_t(char *rp, int *rp_count);
 
 /**
- * Convert get log info from ASCII to int16
+ * 将获取的日志信息从 ASCII 转换为 int16
  *
  * @param rp        char
  * @param rp_count  int
@@ -1515,29 +1513,29 @@ int16_t dlt_getloginfo_conv_ascii_to_int16_t(char *rp, int *rp_count);
 
 
 /**
- * Convert get log info from ASCII to string (with '\0' termination)
+ * 将获取的日志信息从 ASCII 转换为字符串（以'\0'结束）
  *
  * @param rp        char
  * @param rp_count  int
- * @param wp        char Array needs to be 1 byte larger than len to store '\0'
+ * @param wp        char 数组需要比 len 大 1 个字节来存储"\0
  * @param len       int
  */
 void dlt_getloginfo_conv_ascii_to_string(char *rp, int *rp_count, char *wp, int len);
 
 
 /**
- * Convert get log info from ASCII to ID (without '\0' termination)
+ * 将获取的日志信息从 ASCII 转换为 ID（不以'\0'结束）
  *
  * @param rp        char
  * @param rp_count  int
  * @param wp        char
  * @param len       int
- * @return position of last read character in wp
+ * @return 最后读取字符在 wp 中的位置
  */
 int dlt_getloginfo_conv_ascii_to_id(char *rp, int *rp_count, char *wp, int len);
 
 /**
- * Convert from hex ASCII to binary
+ * 从十六进制 ASCII 转换为二进制
  * @param ptr    const char
  * @param binary uint8_t
  * @param size   int
@@ -1545,26 +1543,26 @@ int dlt_getloginfo_conv_ascii_to_id(char *rp, int *rp_count, char *wp, int len);
 void dlt_hex_ascii_to_binary(const char *ptr, uint8_t *binary, int *size);
 
 /**
- * Helper function to execute the execvp function in a new child process.
- * @param filename file path to store the stdout of command (NULL if not required)
- * @param command execution command followed by arguments with NULL-termination
+ * 在新的子进程中执行 execvp 函数的辅助函数。
+ * @param filename 存储命令 stdout 的文件路径（不需要时为 NULL）
+ * @param command 执行命令，参数以 NULL 结尾
  * @return 如果出现错误则为负值
  */
 int dlt_execute_command(char *filename, char *command, ...);
 
 /**
- * Return the extension of given file name.
- * @param filename Only file names without prepended path allowed.
- * @return pointer to extension
+ * 返回给定文件名的扩展名。
+ * @param filename 只允许使用不带路径的文件名。
+ * @return 指向扩展名的指针
  */
 char *get_filename_ext(const char *filename);
 
 /**
- * Extract the base name of given file name (without the extension).
- * @param abs_file_name Absolute path to file name.
- * @param base_name Base name it is extracted to.
- * @param base_name_length Base name length.
- * @return indicating success
+ * 提取给定文件名的基本名称（不含扩展名）。
+ * @param abs_file_name 文件名的绝对路径。
+ * @param base_name 提取到的基准名称。
+ * @param base_name_length Base name 长度.
+ * @return 标志着成功
  */
 bool dlt_extract_base_name_without_ext(const char* const abs_file_name, char* base_name, long base_name_len);
 
