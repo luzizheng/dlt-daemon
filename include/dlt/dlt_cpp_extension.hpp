@@ -162,9 +162,9 @@ static inline int32_t logToDltVariadic(DltContextData &log, First const &valueA,
 }
 
 /**
- * @brief macro to write a log message with variable number of arguments and without the need to specify the type of log data
+ * @brief 宏，用于编写日志信息，参数数量可变，且无需指定日志数据类型
  *
- * The macro can be used with any type that provides a logToDlt function.
+ * 该宏可用于任何提供 logToDlt 函数的类型。
  *
  * Example:
  * DLT_LOG_CXX(dltContext, DLT_LV_X, "text", valueA, valueB, ...)
@@ -182,12 +182,12 @@ static inline int32_t logToDltVariadic(DltContextData &log, First const &valueA,
     while(false)
 
 /**
- * @brief macro to write a log message with variable number of arguments and without the need to specify the type of log data.
+ * @brief 宏，用于编写日志信息，参数数量可变，且无需指定日志数据类型.
  *
- * The macro can be used with any type that provides a logToDlt function.
- * This includes all the types that are code generated.
+ * 该宏可用于任何提供 logToDlt 函数的类型。
+ * 这包括代码生成的所有类型.
  *
- * This macro is similar to \c DLT_LOG_CXX. However, it adds the current function name as the first log argument.
+ * 该宏类似于 \c DLT_LOG_CXX。不过，它将当前函数名添加为第一个日志参数。
  *
  * Example:
  * DLT_LOG_FCN_CXX(dltContext, DLT_LV_X, "text", valueA, valueB, ...)
